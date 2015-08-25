@@ -1,3 +1,5 @@
 = First post after hubpress.io install
 
 Next step is to move my current wordpress blog to hubpress :)
+
+nice.
