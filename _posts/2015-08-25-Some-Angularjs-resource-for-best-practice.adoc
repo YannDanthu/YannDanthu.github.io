@@ -1,0 +1,4 @@
+= Some Angular.js resource for best practice
+:hp-tags: Angular.js
+
+http://trochette.github.io/Angular-Design-Patterns-Best-Practices/#/business_logic
