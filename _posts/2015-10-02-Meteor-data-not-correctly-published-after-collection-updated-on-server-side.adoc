@@ -1,2 +1,46 @@
-# Data removedMeteor: side effect of 'vue' package
+# Meteor: data not correctly published after collection updated on server side.
+:hp-tags: meteorjs, publish, error
+
+*I have experienced a strange behavior with Meteor publish lately.* +
+This was due to package vue:vue (https://atmospherejs.com/vue/vue)
+
+== Problem: why my data disappeared ?
+Collection on client side was correct, with the expected data, until it was updated on server side. +
+Updating the collection from client side was working fine.
+
+Problem occurred when the data was updated form another client (or updated on server side directly in mongo for testing purpose). +
+In that case, the collection on client side was updated with the _id only. The rest of the data was removed.
+
+== Example: how it looks like
+at launch, verify collection content in web console: 
+[source,js]
+----
+> Test.find().fetch()  
+
+{ 
+  '_id' : 'rFnC7ZpBjwAyCY4yE',
+  'name' : 'test' 
+}
+----
+
+updating document in mongo:
+[source,js]
+----
+meteor:PRIMARY> test.update({ '_id': 'rFnC7ZpBjwAyCY4yE'}, {'name': 'updating'});
+----
+
+checking back in the console the publish result:
+[source, js]
+----
+> Test.find().fetch()  
+
+{ '_id' : 'rFnC7ZpBjwAyCY4yE' }
+----
+
+== Cause
+This was not a fresh meteor project but an already started project I was taking on. +
+In order to figure out what was that problem I did not encountered yet in the past, I started by removing packages reference one by one. +
+And finally found that vue:vue was the bad guy ;)
+
+https://atmospherejs.com/vue/vue
 
