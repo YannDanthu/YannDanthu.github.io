@@ -1,0 +1,13 @@
+# Java Unparseable date
+:hp-tags: exception, java
+
+If using SimpleDateFormat to parse a string into a Date object, it may fail if the Locale sets in SimpleDateFormat differ from the string format.
+
+----
+java.text.ParseException: Unparseable date: "02NOV2004"
+      at java.text.DateFormat.parse(DateFormat.java:335)
+----
+
+The above example shows an exception parsing the string “02NOV2004” with the pattern ddMMMyyyy.
+
+This should work, but if the Locale is FR (french) then the short name for November is “nov.” (Ending with a dot) and not “nov” making the process to fail.

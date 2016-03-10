@@ -1,0 +1,65 @@
+# IP GeoLocation with AngularJS
+:hp-tags: angular geoloc
+
+Your web site is available in different language and you want to select the one matching the client location.
+
+To be accurate we need to locate the client IP to retrieve the country it belongs to.
+
+How to do it fast and simple ? Let’s use an existing free IP lookup API that will locate the IP for us, and lets do the request with AngularJS :)
+
+One of IP GeoLocation service available is http://ipinfo.io
+Calling it with json uri (http://ipinfo.io/json) will return IP location information in json format. (you will get less but sufficient info with http://ipinfo.io/geo)
+
+----
+{
+  "ip": "8.8.8.8",
+  "hostname": "google-public-dns-a.google.com",
+  "loc": "37.385999999999996,-122.0838",
+  "org": "AS15169 Google Inc.",
+  "city": "Mountain View",
+  "region": "California",
+  "country": "US",
+  "phone": 650
+}
+----
+
+Let’s do the request with AngulaJS and use the result.
+
+----
+ function GetCountry($scope, $http) {
+   $http.get('http://ipinfo.io/json').
+     success(function(data) {
+       $scope.location = data;
+       $scope.country = 'fr';
+       if (data.country != 'FR') $scope.country = "en";
+   });
+ }
+ ----
+
+So easy to handle json data with angular :)
+
+The web page part:
+
+----
+<!DOCTYPE html>
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.3/angular.min.js"></script>
+    <script>
+function GetCountry($scope, $http) {
+   $http.get('http://ipinfo.io/json').
+     success(function(data) {
+       $scope.location = data;
+       $scope.country = 'fr';
+       if (data.country != 'FR') $scope.country = "en";
+   });
+ }
+   </script>
+ </head>
+ <body>
+ <div ng-controller="GetCountry">Your country: {{country}}</div>
+ </body>
+</html>
+----
+
+and that’s it.

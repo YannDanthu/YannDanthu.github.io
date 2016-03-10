@@ -1,0 +1,46 @@
+# I need a NAS for TimeMachine
+:hp-tags: NAS, OSX, TImeMachine
+
+== My needs
+Apple’s backup TimeMachine is the backup solution offered for every Mac owner, if he did not got stuck with Tiger ;)
+
+Plug an external disk and here you go, you can backup your Mac on it. Great! Easy! Nice!
+
+What if I want to backup elsewhere than on an attached external disk drive ? Lets say on a storage available on my LAN ? Yes, on a NAS.
+In that case I need a NAS to be TimeMachine ready, yes the NAS has to be recognized by TimeMachine in order to use it as a disk target.
+Easy solution, buy a TimeCapsule of course :D You see, it’s easy, Apple thought of everything.
+
+No seriously, I don’t need an extra router with switch and wireless access point, just a NAS to do my backup ;)
+
+Why not buying a NAS already bundled with disks, like Synology, ReadyNAS or QNap ? Come on, let’s spend money again :D
+Do I have the money ? Are they reliable ? How many disks ? Can I expand the storage size ?
+
+Hey, what about recycling an old PC exhausts by a lifetime running Windows XP (and its hundreds of patches). Maybe this old PC deserves a second chance and retire as a File Server ;)
+
+Ok, what do I do with my naked PC ?
+I need a NAS solution, but a lightweight OS and software solution.
+First thing that came to my mind is Linux (don’t tell me you thought of installing windows again, please be nice with the machine)
+
+Let’s go for Linux then. Ho wait, I’ve also heard of ZFS. Could ZFS be useful for me ?
+
+== Requirements:
+* build a NAS by recycling a PC
+* Lightweight solution
+* easy to install and maintain
+* reliable
+* expandable disk storage
+* ZFS, RAID support
+* TimeMachine enabled, AFP, Samba
+
+== Solution
+Let’s find a Linux based solution. Let’s do some search ….
+Ok here is the result of my search: link:https://www.openfiler.com/[openfiler], link:http://www.serverelements.com/[naslite], link:http://nas4free.org/[nas4free]
+
+These 3 came up regularly in forums and posts.
+
+After more readings I would go with NAS4Free. Original open source project was filed under FreeNAS but as it became more commercial, the team split and the non-commercial branch continued under NAS4Free.
+NAS4Free is based on FreeBSD.
+
+Please check link:http://nas4free.org/[nas4free.org] web site for more info.
+
+How to install NAS4Free: I’ll do a post for that.

@@ -1,0 +1,9 @@
+# Great icons for web site
+:hp-tags: CSS, HTML, icon
+
+You will find plenty of web site dedicated to icons. Here are my favorites.
+
+clean icons http://www.iconsdb.com
+huge collection https://www.iconfinder.com
+awesome vector font icon at http://fontawesome.io
+I will update it over time.

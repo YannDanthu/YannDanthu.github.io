@@ -1,0 +1,36 @@
+# Different ways to configure spring data in xml conf:
+:hp-tags: java, mongo, spring
+
+== Spring data mongo conf using factory
+
+----
+<!-- Spring data mongo conf using factory -->
+<mongo:mongo id="mongo" replica-set="${mongo.database.url}" />
+
+<mongo:db-factory id="mongoDbFactory"
+                  mongo-ref="mongo"
+                  dbname="${mongo.database.name}"
+                  username="${mongo.database.username}"
+                  password="${mongo.database.password}"/>
+
+<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+  <constructor-arg ref="mongoDbFactory" />
+</bean>
+----
+
+== Spring data mongo conf without factory
+
+----
+<!-- Spring data mongo conf without factory -->
+<mongo:mongo id="mongo" replica-set="${mongo.database.url}" />
+<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
+  <constructor-arg name="username" value="${mongo.database.username}"/>
+  <constructor-arg name="password" value="${mongo.database.password}"/>
+</bean>
+
+<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+  <constructor-arg name="mongo" ref="mongo"/>
+  <constructor-arg name="databaseName" value="${mongo.database.name}"/>
+  <constructor-arg name="userCredentials" ref="userCredentials"/>
+</bean>
+----

@@ -1,0 +1,102 @@
+# Nas4Free – migrate ZFS mirror to bunch of disk
+:hp-tags: NAS, nas4free, zfs
+
+== Question:
+How to change a ZFS pool configuration made of mirror disks into a bunch of disks in nas4free ?
+
+This is in fact an easy process.
+
+To complete this task will use the command line zpool command and the nas4free synchronize features available in the Disks/ZFS/Configuration/Synchronize page.
+
+== ZFS configuration
+Let say the ZFS pool is made of 2 virtual devices.
+
+Each virtual device is made of a 2 disks in mirror.
+
+----
+$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	zpool       ONLINE       0     0     0
+	  mirror-0  ONLINE       0     0     0
+	    ada2    ONLINE       0     0     0
+	    ada3    ONLINE       0     0     0
+	  mirror-1  ONLINE       0     0     0
+	    ada1    ONLINE       0     0     0
+	    ada4    ONLINE       0     0     0
+
+errors: No known data errors
+----
+
+== Remove one disk in each mirror:
+----
+$ zpool detach zpool /dev/ada2
+$ zpool detach zpool /dev/ada1
+----
+
+== ZPOOL status after removing the disks
+----
+$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME      STATE     READ WRITE CKSUM
+	zpool     ONLINE       0     0     0
+	  ada3    ONLINE       0     0     0
+	  ada4    ONLINE       0     0     0
+
+errors: No known data errors
+----
+
+== Nas4Free: synchronise zfs configuration in GUI
+1. Logged in nas4free GUI
+2. Go to: Disks > ZFS section
+3. Click on Configuration tab
+4. Click on Synchronize sub-tab
+5. Finally, click on the synchronize button at the bottom of the page
+
+Now your ZFS configuration will be updated in the GUI (check in “current” sub-tab)
+
+== Add the removed disk on the ZFS pool to get a bunch of 4 disks
+We have removed one disk in each mirror virtual device, and updated the config in the GUI.
+
+We now have 2 disks left that we can add to the ZFS pool to get a bunch of 4 disks.
+
+How do we do that?
+
+Same process as above: add the disks and then synchronize the config in the GUI.
+
+=== Adding disk to the ZFS pool
+----
+$ zpool add zpool /dev/ada1
+$ spool add zpool /dev/ada2
+----
+
+=== ZFS pool status after adding the disks
+----
+$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME      STATE     READ WRITE CKSUM
+	zpool     ONLINE       0     0     0
+	  ada3    ONLINE       0     0     0
+	  ada4    ONLINE       0     0     0
+	  ada1    ONLINE       0     0     0
+	  ada2    ONLINE       0     0     0
+
+errors: No known data errors
+----
+
+=== Synchronize ZFS config in GUI
+Do as mention in above section “synchronize ZFS config”
+
+And here you go :)

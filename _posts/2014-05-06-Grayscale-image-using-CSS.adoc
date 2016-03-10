@@ -1,0 +1,29 @@
+# Grayscale image using CSS
+:hp-tags: CSS, HTML, tips
+
+Need a grayscale to color effect applied to images used in menu or button ?
+I do ;)
+
+Doing it the old would need to create colored and grayed image and use either javascript or CSS background-image.
+
+But today CSS should be enough to accomplish this task.
+Here is how:
+----
+img.grayscale{
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%); /* For Webkit browsers */
+  filter: gray; /* For IE 6 - 9 */
+  -webkit-transition: all .6s ease; /* Transition for Webkit browsers */
+}
+----
+
+The hover effect:
+----
+img.grayscale:hover{
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+  filter: none;
+}
+----
+
+source: link:http://www.cheesetoast.co.uk/add-grayscale-images-hover-css-black-white/[cheesetoast]

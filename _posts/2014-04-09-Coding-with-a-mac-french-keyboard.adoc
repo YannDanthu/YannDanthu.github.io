@@ -1,0 +1,26 @@
+# Coding with a mac french keyboard
+:hp-tags: coding, OSX, tips
+
+Coding requires some specific characters such as
+
+----
+ [ ] { } ( ) \
+----
+
+Unfortunately the Apple french keyboard (wireless or macbook) does not show brackets, curlybraces and backslash.
+
+Also, a lot of characters are available with key combination but not displayed on the keyboard.
+
+Learning these combinations is an option.
+
+Displaying the available characters is another.
+To do so, select “Afficher Visualiseur de clavier” in top menu bar (aside of clock)
+
+This may need to activate the icon to appear from “Préférences Système > Clavier”
+
+image:images/osx-keyb.tiff
+Default layout
+image:images/osx-keyb-alt.tiff
+ALT key layout
+image:images/osx-keyb-shiftalt.tiff
+ALT + SHIFT key layout

@@ -1,0 +1,288 @@
+# Calling REST services with AngluarJS
+:hp-tags: angularjs, rest, java, web
+
+We have seen the server side part of link:http://yann.danthu.com/blog/2014/05/rest-with-spring-mvc/[REST with Spring MVC].
+Now its time of getting to the frontend side with AngularJS.
+I will try to do it simple and accurate. ;)
+
+*Goal:* How to request REST service and handle response with AngularJS.
+
+== Introduction
+Let’s use our REST service created with Spring framework in previous post and create a simple web ui for it.
+In this little tutorial we will:
+
+* create HTML views to display list of Courses, show detail of a Course and create a new Course
+* use AngularJS ng-view directive
+* use AngularJS ng-model directive
+* use AngularJS controller to request REST service using $resource
+
+== Angular Service to request REST service
+Let’s create the Angular Service to access the REST web service we have created to serve the Course resource.
+We will use the $resource object dedicated to RESTful interaction.
+Check how the local access methods are defined and mapped to the HTTP method.
+The ‘query’ method will return the Course list, this is why we specify “isArray: true”.
+
+*services.js*
+----
+/* Services */
+var services = angular.module('courseApp.services', ['ngResource']);
+
+services.factory('Course', function($resource) {
+return $resource('/tuto-rest-spring/rest/courses/:id', {id: '@id'}, {
+        get: { method: 'GET' },
+        query: { method: 'GET', isArray: true },
+        create: { method: 'PUT' },
+        remove: { method: 'DELETE', params: {id: '@id'} }
+   })
+});
+----
+
+== Angular application
+Let’s create our app module and add the courseApp.services dependency.
+
+*application.js*
+----
+/* App Module */
+
+//Create an application module.
+var app = angular.module( 'courseApp', ['courseApp.services'] );
+----
+
+== Controller
+Let’s start with a minimalist controller. Just one with default behaviour would be to fetch the Course list.
+Courses’ list will be stored in the $scope.course
+
+*controller.js*
+----
+/* Controllers */
+
+function CourseController($scope, Course) {
+$scope.courses = Course.query();
+}
+----
+See how easy it is to query the REST webservice.
+The controller will be completed as we progress in the tutorial.
+
+== Views
+Let’s create the views to display the Course list, the detail of a Course and one to create a new Course.
+
+== Course list view
+*Goal:* list the Course elements (name + short description) and enable action (view detail, delete, create new Course).
+
+*course-list.html*
+----
+<div id="courseList">
+    <h2>Courses list ({{courses.length}})</h2>
+    <ul>
+        <li ng-repeat="course in courses">
+            <a href="" ng-click="gotoCourseDetailPage(course)"><span class="courseTitle">{{course.name}}</span></a> :
+            <span class="courseDescription">{{course.description | filter:ellipsis:20}}</span> &nbsp;
+            <button class="button" ng-click="deleteCourse(course)">X</button>
+        </li>
+    </ul>
+    <button ng-click="gotoCourseNewPage()">Add</button>
+</div>
+----
+
+This view uses 3 angular concepts:
+
+* double curly braces markup: {{courses.length}} is replaced by its content evaluation, which means it returns the length value of the courses array defined in the controller (no need to specify scope).
+* link:https://docs.angularjs.org/api/ng/directive/ngRepeat[ng-repeat] directive: instanciate a template per item.
+* link:https://docs.angularjs.org/api/ng/directive/ngClick[ng-click] directive: specify behaviour on click event.
+
+Check git for the other views.
+
+== Display the views
+We want the display the view dedicated to current action.
+To do this we can use the ng-views directive, but also the ng-switch directive in order to switch to the needed view.
+We will see both in order to be aware of the differences and impact on controller.
+
+=== ng-switch
+Ok, let’s start with the main page index.html.
+Using ng-switch and ng-include is a good combo.
+
+*index.html*
+----
+<!doctype html>
+<html ng-app="courseApp">
+<head>
+<title>Course.ng</title>
+<meta charset="UTF-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<link href="css/style.css" rel="stylesheet" />
+<script src="js/libs/angular-1.3.0.js"></script>
+<script src="js/libs/angular-resource-1.3.0.js"></script>
+<script src="js/libs/angular-route-1.3.0.js"></script>
+<script src="js/app/application.js"></script>
+<script src="js/app/services.js"></script>
+<script src="js/app/controllers.js"></script>
+</head>
+<body ng-controller="CourseController">
+  <div id="body">
+
+    <div id="page">
+
+      <div id="pageHeader">
+        <h1>Course.ng</h1>
+      </div>
+
+      <div id="pageBody" >
+        <div>{{courseView}}
+          <div ng-switch="courseView">
+            <div ng-switch-when="new">
+              <div ng-include src=" views.create "></div>
+            </div>
+            <div ng-switch-when="list">
+              <div ng-include src=" views.list "></div>
+            </div>
+            <div ng-switch-when="detail">
+              <div ng-include src=" views.detail "></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>
+----
+
+Here we use the link:https://docs.angularjs.org/api/ng/directive/ngSwitch[ng-switch] directive to display the desire views according to the courseView value.
+link:https://docs.angularjs.org/api/ng/directive/ngInclude[ng-include] is also another angular directive enabling external HTML fragment to be included in the current page.
+Notice that the src attribute expects an expression not an url. So if you want to put the view link directly in the attribute value, put single quote around src=" 'views/views-list.html' "
+
+Our updated controller now look like this:
+
+*controller.js*
+----
+/* Controllers */
+
+function CourseController($scope, Course) {
+  // define the views
+  $scope.views = {create: 'views/course-new.html',
+          detail: 'views/course-detail.html',
+          list: 'views/course-list.html'};
+
+  // default view
+  $scope.courseView = "list";
+
+  // default behaviour
+  $scope.courses = Course.query();
+}
+----
+
+There is a specificity about ng-include and $scope.
+Like many other before me and many more after me I suppose, I have experiment this with the create Course form.
+
+Check link:https://github.com/angular/angular.js/wiki/Understanding-Scopes[scope] full details.
+To be short, the update made in the form using ng-model will not update the scope in the controller.
+
+To fix this, we have to create an object in the model and specifically use the object model in the `ng-model. ng-model=" model.newcourse.name "``.
+
+=== ng-view
+The link:https://docs.angularjs.org/api/ngRoute/directive/ngView[ng-view] directive is part of the ngRoute module.
+
+How the main page looks like ?
+
+*index.html*
+----
+<!doctype html>
+<html ng-app="courseApp">
+<head>
+    <title>Course.ng</title>
+    <meta charset="UTF-8">
+    <link href="css/style.css" rel="stylesheet"/>
+    <script src="js/libs/angular-1.3.0.js"></script>
+    <script src="js/libs/angular-resource-1.3.0.js"></script>
+    <script src="js/libs/angular-route-1.3.0.js"></script>
+    <script src="js/app/application.js"></script>
+    <script src="js/app/services.js"></script>
+    <script src="js/app/controllers.js"></script>
+</head>
+<body>
+<div id="body">
+
+    <div id="page">
+
+        <div id="pageHeader">
+            <h1>Course.ng</h1>
+        </div>
+
+        <div id="pageBody">
+            <div ng-view></div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
+----
+
+Looks great right ? No logic about view display in the html page.
+
+But how are the views displayed ?
+
+Let see the angular application module for this:
+
+*application.js*
+----
+angular.module('courseApp', ['ngRoute', 'courseApp.services']).
+  config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+      $routeProvider.
+        when('/courses',     {templateUrl:'views/course-list.html',   controller:CourseListController}).
+        when('/courses/new', {templateUrl:'views/course-new.html',    controller:CourseNewController}).
+        when('/courses/:id', {templateUrl:'views/course-detail.html', controller:CourseDetailController}).
+        otherwise({redirectTo:'/courses'});
+
+}]);
+----
+
+As you can see, we define template and controller for different routes (one view → one controller).
+
+The template of the current route is rendered in the view.
+
+This has an impact on the controller as we work with location path to change views instead of a property.
+
+*controller.js*
+----
+/* Controllers */
+
+function CourseListController($scope, $location, Course) {
+    // default behavior
+    $scope.courses = Course.query();
+
+  // load the view "create Course"
+    $scope.gotoCourseNewPage = function() {
+        $location.path("/courses/new");
+    };
+
+  // delete specific Course
+    $scope.deleteCourse = function(data) {
+        Course.remove({
+            id : data.id
+        }, {}, function() {
+            $location.path('/');
+        });
+    };
+
+  // get Course detail
+    $scope.gotoCoursePageDetail = function(course) {
+        $location.path("/courses/" + course.id);
+    };
+}
+----
+
+== Conclusion
+In this tutorial, we have seen :
+
+* how to define an angularJs application
+* how to define an angluarJs controller
+* the default angularJS binding using double curlybraces {{}}
+* how to define a service and use the $resource resource for REST
+* how to use the ng-view directive
+* ng-repeat, ng-switch, ng-click, ng-include, ng-model (see course-new.html on git)
+
+Check the link:https://github.com/YannDanthu/tuto-rest-spring[tuto-rest-spring] on github for full resources.

@@ -1,0 +1,189 @@
+# REST with Spring MVC
+:hp-tags: java, json, rest, spring
+
+[underline] Goal
+
+Introduction to REST, JSON and Spring MVC.
+To do so, let’s implement a REST service with Spring MVC.
+
+[underline] RESTFul principles
+
+* Uniform interface
+* Stateless
+* Cacheable
+* Client Server mode
+
+Where SOAP services are based on verbs (like methods exposed by an interface) , REST are based on resources.
+When designing REST web service, use nouns not verbs, use path navigation not request attributes.
+
+== Introduction
+Let’s build a simple REST service and implement it with Spring MVC.
+First part, the server side part (this post).
+Second part, the client side part (link:http://yann.danthu.com/blog/2014/06/calling-rest-services-with-angluarjs/[available here]) with AngularJS
+
+== The resource
+----
+package com.danthu.tutorial.spring.rest.model;
+/**
+ * REST with Spring MVC
+ * @author Yann Danthu
+ */
+public class Course {
+  private String id;
+  private String name;
+  private String description;
+  public String getId() {
+    return id;
+  }
+  public void setId(String id) {
+    this.id = id;
+  }
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+  public String getDescription() {
+    return description;
+  }
+  public void setDescription(String description) {
+    this.description = description;
+  }
+}
+----
+
+== The REST interface
+----
+GET /courses to retrieve all Course elements
+PUT /courses to create a new Course element
+GET /courses/{id} to retrieve a specific Course element of given id ( e.g. /courses/1234 )
+DELETE /courses/{id} to delete a Course element
+----
+
+== Spring MVC part
+Below is the Course spring controller.
+See how easy it is to configure the controller according to the REST interface we have defined.
+
+----
+package com.danthu.tutorial.spring.rest.controller;
+// imports go here (did not show them for readability)
+
+/**
+* REST with Spring MVC
+* @author Yann Danthu
+*/
+@Controller
+@RequestMapping("/courses")
+public class CourseController {
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<Course> getAllCourses() {
+        List<Course> orders = courseRepository.getAll();
+        return orders;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Course getById(@PathVariable String id) {
+        return courseRepository.get(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void save(@RequestBody Course course) {
+        courseRepository.save(course);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String id) {
+        courseRepository.delete(id);
+    }
+}
+----
+
+Spring configuration
+Let’s write the Spring configuration xml file resource/spring/spring.xml
+
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+
+    <!-- Scan components for annotations within the configured package (like @Controller)-->
+    <context:component-scan base-package="com.danthu.tutorial.spring.controller"/>
+
+    <!--  Activate annotation dispatcher configuration (like @RequestMapping)-->
+    <mvc:annotation-driven/>
+
+</beans>
+----
+
+The REST service will be embedded in a web app, so lets define the WEB-INF/web.xml file.
+(We will talk about Spring Boot in another post)
+
+----
+<servlet>
+    <servlet-name>Spring</servlet-name>
+    <servlet-class&gtorg.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/spring/spring.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>Spring</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+</servlet-mapping>
+----
+
+== Maven dependencies
+----
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>4.0.5.RELEASE</version>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>4.0.5.RELEASE</version>
+  </dependency>
+  <dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-mapper-asl</artifactId>
+    <version>1.9.13</version>
+  </dependency>
+  <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>servlet-api</artifactId>
+    <version>3.0-alpha-1</version>
+    <scope>provided</scope>
+  </dependency>
+----
+
+== Conclusion
+We have seen quickly how to design a simple REST api.
+How to implement it with a Spring MVC controller.
+How to configure Spring with xml configuration file (annotation configuration will be part of a future post).
+Minimum dependencies necessary for Spring MVC REST with JSON output.
+
+Full sources are available on github link:https://github.com/YannDanthu/tuto-rest-spring[here].
+
+[underline] Next posts to come:
+
+* the client side in angularJS
+* the power of @Autowired spring feature.
+* expose a REST service with Spring Data and MongoDB.

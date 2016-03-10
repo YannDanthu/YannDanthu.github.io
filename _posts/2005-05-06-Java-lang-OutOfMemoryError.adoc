@@ -1,0 +1,14 @@
+# Java.lang.OutOfMemoryError
+:hp-tags: exception, java
+
+There are three possible causes for an OutOfMemoryError. The first is that the JVM has a real memory leak, caused by a bug in the internal implementation of the JVM heap management. This is extremely unlikely. All JVMs are tested very strenuously for this, and it would be the absolute top priority bug if anyone found such a bug. So you can pretty much eliminate this possibility.
+
+The second possible cause of an OutOfMemoryError is that you simply haven’t got enough memory available for the workings of your application. There are two possible solutions to this situation, either increase the available JVM heap size, or decrease the amount of memory your application needs. Increasing the available JVM heap size is simply done with the -Xmx parameter to the JVM. If you still have the memory problem because you have already increased this parameter as much as possible (up to available RAM, don’t exceed real system memory or your application will page and crawl to a halt), then you need to reduce the amount of memory being used by your application. Reducing application memory may be simple, you may just be allowing some collections to be too big, for example using many large buffers. Or it can be complex, requiring you to reimplement some classes, or even redesign the application.
+
+Reader James Stauffer has pointed out that with some JVMs (e.g. the Sun JVMs), there is also a “Perm” space which holds JVM structures and class objects. If you are using a very large number of classes, it is possible to run out of space in “Perm” space, and you may need to increase the size of that space, e.g. with the Sun JVM using the -XX:PermSize and -XX:MaxPermSize options.
+
+The third possible cause of an OutOfMemoryError is the most common, unintentional object retention. You are hanging on to objects without realizing it and this is causing your heap to grow and grow until you have nothing spare.
+
+
+
+source: link:http://www.javaperformancetuning.com/news/qotm036.shtml[javaperformancetuning]

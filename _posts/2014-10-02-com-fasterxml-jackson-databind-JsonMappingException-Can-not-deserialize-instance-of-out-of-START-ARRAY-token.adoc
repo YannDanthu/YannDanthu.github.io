@@ -1,0 +1,30 @@
+# com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instance of * out of START_ARRAY token
+:hp-tags: jackson, json, maven, java
+
+I encounter this exception after a (massive) maven dependencies update which included CXF and Spring.
+The project was supposed to be updated with Jackson 2.3 but the stack shows that vesion 2.2.3 of jackson-databind is used.
+
+----
+com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instance of com.*.api.model.Request out of START_ARRAY token
+at [Source: <a href="mailto:java.io.ByteArrayInputStream@7d1519c4">java.io.ByteArrayInputStream@7d1519c4</a>; line: 1, column: 1]
+               at com.fasterxml.jackson.databind.JsonMappingException.from(JsonMappingException.java:164) ~[jackson-databind-2.2.3.jar:na]
+               at com.fasterxml.jackson.databind.DeserializationContext.mappingException(DeserializationContext.java:575) ~[jackson-databind-2.2.3.jar:na]
+               at com.fasterxml.jackson.databind.DeserializationContext.mappingException(DeserializationContext.java:569) ~[jackson-databind-2.2.3.jar:na]
+----
+
+This exception occured on deserializing a String to a Date with a @JsonFormat annotation on the model property
+
+----
+@JsonFormat(pattern = "yyyy-MM-dd")
+----
+
+Adding the following dependency solves the problem.
+----
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.3.3</version>
+        </dependency>
+----
+
+This is kind of temporary fix, as the root cause comes from the project dependencies version that must be cross-checked.
