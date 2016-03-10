@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Nas4Free – migrate ZFS mirror to bunch of disk</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//YannDanthu.github.io/themes/Roon/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:400,700,400italic,700italic|Open+Sans:400italic,700italic,700,400">
+    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/Roon/assets/css/screen.css?v=1.0.0" />
+
+    <link rel="canonical" href="https://YannDanthu.github.io/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html" />
+    
+    <meta property="og:site_name" content="Yann&#x27;s blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Nas4Free – migrate ZFS mirror to bunch of disk" />
+    <meta property="og:description" content="Question: How to change a ZFS pool configuration made of mirror disks into a bunch of disks in nas4free ? This is in fact an easy process. To complete this task will use the command line zpool command and the nas4free..." />
+    <meta property="og:url" content="https://YannDanthu.github.io/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html" />
+    <meta property="article:published_time" content="2014-08-21T22:00:00.000Z" />
+    <meta property="article:modified_time" content="2016-03-10T14:47:57.479Z" />
+    <meta property="article:tag" content="NAS" />
+    <meta property="article:tag" content="nas4free" />
+    <meta property="article:tag" content="zfs" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Nas4Free – migrate ZFS mirror to bunch of disk" />
+    <meta name="twitter:description" content="Question: How to change a ZFS pool configuration made of mirror disks into a bunch of disks in nas4free ? This is in fact an easy process. To complete this task will use the command line zpool command and the nas4free..." />
+    <meta name="twitter:url" content="https://YannDanthu.github.io/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Yann&#x27;s blog",
+    "author": {
+        "@type": "Person",
+        "name": "Yann Danthu",
+        "image": "https://avatars.githubusercontent.com/u/7732947?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": "http://yann.danthu.com"
+    },
+    "headline": "Nas4Free – migrate ZFS mirror to bunch of disk",
+    "url": "https://YannDanthu.github.io/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html",
+    "datePublished": "2014-08-21T22:00:00.000Z",
+    "dateModified": "2016-03-10T14:47:57.479Z",
+    "keywords": "NAS,  nas4free,  zfs",
+    "description": "Question: How to change a ZFS pool configuration made of mirror disks into a bunch of disks in nas4free ? This is in fact an easy process. To complete this task will use the command line zpool command and the nas4free..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="Yann&#x27;s blog" href="https://YannDanthu.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-N-A-S tag-nas4free tag-zfs  noimage">
+
+    
+
+
+    <article role="main" class="">
+        <header>
+            <a href="https://YannDanthu.github.io" id="home_link">«</a>
+            <div class="meta"><time datetime="2014-08-22"><a href="/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html">August 22, 2014</a></time> <span class="count" id="js-reading-time"></span></div>
+            <h1>Nas4Free – migrate ZFS mirror to bunch of disk</h1>
+        </header>
+
+        <div class="text" id="js-post-content">
+            <div class="sect1">
+<h2 id="_question">Question:</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>How to change a ZFS pool configuration made of mirror disks into a bunch of disks in nas4free ?</p>
+</div>
+<div class="paragraph">
+<p>This is in fact an easy process.</p>
+</div>
+<div class="paragraph">
+<p>To complete this task will use the command line zpool command and the nas4free synchronize features available in the Disks/ZFS/Configuration/Synchronize page.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_zfs_configuration">ZFS configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let say the ZFS pool is made of 2 virtual devices.</p>
+</div>
+<div class="paragraph">
+<p>Each virtual device is made of a 2 disks in mirror.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	zpool       ONLINE       0     0     0
+	  mirror-0  ONLINE       0     0     0
+	    ada2    ONLINE       0     0     0
+	    ada3    ONLINE       0     0     0
+	  mirror-1  ONLINE       0     0     0
+	    ada1    ONLINE       0     0     0
+	    ada4    ONLINE       0     0     0
+
+errors: No known data errors</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remove_one_disk_in_each_mirror">Remove one disk in each mirror:</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool detach zpool /dev/ada2
+$ zpool detach zpool /dev/ada1</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_zpool_status_after_removing_the_disks">ZPOOL status after removing the disks</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME      STATE     READ WRITE CKSUM
+	zpool     ONLINE       0     0     0
+	  ada3    ONLINE       0     0     0
+	  ada4    ONLINE       0     0     0
+
+errors: No known data errors</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nas4free_synchronise_zfs_configuration_in_gui">Nas4Free: synchronise zfs configuration in GUI</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Logged in nas4free GUI</p>
+</li>
+<li>
+<p>Go to: Disks &gt; ZFS section</p>
+</li>
+<li>
+<p>Click on Configuration tab</p>
+</li>
+<li>
+<p>Click on Synchronize sub-tab</p>
+</li>
+<li>
+<p>Finally, click on the synchronize button at the bottom of the page</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now your ZFS configuration will be updated in the GUI (check in “current” sub-tab)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_the_removed_disk_on_the_zfs_pool_to_get_a_bunch_of_4_disks">Add the removed disk on the ZFS pool to get a bunch of 4 disks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have removed one disk in each mirror virtual device, and updated the config in the GUI.</p>
+</div>
+<div class="paragraph">
+<p>We now have 2 disks left that we can add to the ZFS pool to get a bunch of 4 disks.</p>
+</div>
+<div class="paragraph">
+<p>How do we do that?</p>
+</div>
+<div class="paragraph">
+<p>Same process as above: add the disks and then synchronize the config in the GUI.</p>
+</div>
+<div class="sect2">
+<h3 id="_adding_disk_to_the_zfs_pool">Adding disk to the ZFS pool</h3>
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool add zpool /dev/ada1
+$ spool add zpool /dev/ada2</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_zfs_pool_status_after_adding_the_disks">ZFS pool status after adding the disks</h3>
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME      STATE     READ WRITE CKSUM
+	zpool     ONLINE       0     0     0
+	  ada3    ONLINE       0     0     0
+	  ada4    ONLINE       0     0     0
+	  ada1    ONLINE       0     0     0
+	  ada2    ONLINE       0     0     0
+
+errors: No known data errors</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_synchronize_zfs_config_in_gui">Synchronize ZFS config in GUI</h3>
+<div class="paragraph">
+<p>Do as mention in above section “synchronize ZFS config”</p>
+</div>
+<div class="paragraph">
+<p>And here you go :)</p>
+</div>
+</div>
+</div>
+</div>
+        </div>
+
+        <menu>
+            <a href="" id="btn_share" class="btn" title="Share">
+                <span aria-hidden="true" data-icon="S"></span>
+                <strong>Share</strong>
+            </a>
+            <a href="http://twitter.com/share?text=Nas4Free%20%E2%80%93%20migrate%20ZFS%20mirror%20to%20bunch%20of%20disk&url=https://YannDanthu.github.io/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" id="btn_comment" class="btn" target="_blank">
+                <span aria-hidden="true" data-icon="C"></span> Comment on Twitter
+            </a>
+        </menu>
+
+
+        <footer class="post-footer" role="contentinfo">
+
+            <div class="vcard">
+                <!-- <a href="https://YannDanthu.github.io/rss" id="btn_feed" class="btn" title="Feed" target="_blank">
+                    <span aria-hidden="true" data-icon=")"></span>
+                    <strong>Feed</strong>
+                </a> -->
+
+                <a href="" class="photo">
+                    <span style="background-image: url('https://avatars.githubusercontent.com/u/7732947?v=3');">
+                        <img src="https://avatars.githubusercontent.com/u/7732947?v=3" alt="Yann Danthu">
+                    </span>
+                </a>
+
+                <div class="details">
+                    <h4><a href="" class="url n">Yann Danthu</a></h4>
+                    Nantes, France<br>
+                    <a href="http://yann.danthu.com" class="js-remove-domain-schema">http://yann.danthu.com</a>
+                </div>
+            </div>
+
+            <div id="user_bio">
+                <div class="inner">
+                    
+                </div>
+            </div>
+
+        </footer>
+
+
+
+
+    </article>
+
+    <div id="share_modal">
+        <div class="wrap">
+            <div class="inner">
+                <header>
+                    Share
+                    <a href="" class="close" title="Close">&times;</a>
+                </header>
+
+                <div class="roon-share-links">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+                    <div id="fb-elems">
+                        <div id="fb-root"></div>
+                        <script>(function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=463438580397968";
+                        fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));</script>
+                        <div class="fb-like" data-send="false" data-layout="button_count" data-width="110" data-show-faces="false" data-font="arial"></div>
+                    </div>
+
+                    <div id="pinit-btn">
+                        <a href="//pinterest.com/pin/create/button/?url=https://YannDanthu.github.io/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html&amp;description=Nas4Free%20%E2%80%93%20migrate%20ZFS%20mirror%20to%20bunch%20of%20disk-Yann's%20blog " data-pin-do="buttonPin" data-pin-config="beside"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png"></a>
+                        <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+        <a href="https://YannDanthu.github.io" id="blog_badge">
+            <span style="background-image: url('http://yann.danthu.com/moi-circle.png');">Yann&#x27;s blog</span>
+        </a>
+
+
+    <script>
+
+            function get_text(el) {
+                ret = "";
+                var length = el.childNodes.length;
+                for(var i = 0; i < length; i++) {
+                    var node = el.childNodes[i];
+                    if(node.nodeType != 8) {
+                        ret += node.nodeType != 1 ? node.nodeValue : get_text(node);
+                    }
+                }
+                return ret;
+            }
+            function reading_time () {
+                var post_content = document.getElementById('js-post-content');
+                if (post_content) {
+                    var words = get_text(post_content),
+                        count = words.split(/\s+/).length,
+                        read_time = Math.ceil((count / 150)),
+                        read_time_node = document.createTextNode(read_time + ' min read');
+                    document.getElementById('js-reading-time').appendChild(read_time_node);
+                }
+            }
+
+        function no_schema_links () {
+            var links = document.querySelectorAll('.js-remove-domain-schema');
+            if (links) {
+                for (i = 0; i < links.length; ++i) {
+                    var link = links[i],
+                        text = link.innerHTML,
+                        no_schema = text.replace(/.*?:\/\//g, "");
+                    link.innerHTML = no_schema;
+                }
+            }
+        }
+
+        window.onload = function () {
+            no_schema_links();
+
+            reading_time();
+        }
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+        <script>
+            $(function(){
+                var share_modal = $("#share_modal"),
+                    update_social_links = true;
+
+                $("#btn_share").click(function(){
+                    var that = $(this);
+                    share_modal.fadeIn(200);
+                    return false;
+                });
+
+                share_modal.click(function(e){
+                    if (e.target.className == "wrap" || e.target.id == "share_modal") {
+                        share_modal.fadeOut(200);
+                    }
+                    return false;
+                });
+
+                share_modal.find("div.inner > header > a.close").click(function(){
+                    share_modal.fadeOut(200);
+                    return false;
+                });
+            });
+        </script>
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-50478688-2', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+</body>
+</html>
