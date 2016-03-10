@@ -18,9 +18,9 @@ To do so, select “Afficher Visualiseur de clavier” in top menu bar (aside of
 
 This may need to activate the icon to appear from “Préférences Système > Clavier”
 
-image:images/osx-keyb.tiff
+image:osx-keyb.tiff
 Default layout
-image:images/osx-keyb-alt.tiff
+image:osx-keyb-alt.tiff
 ALT key layout
-image:images/osx-keyb-shiftalt.tiff
+image:osx-keyb-shiftalt.tiff
 ALT + SHIFT key layout
