@@ -1,0 +1,8 @@
+# MeteorJS introduction at Meetup14 of nantesjs.org
+:hp-tags: meteorjs, talk
+
+*Here are my slides and demo of my talk on MeteorJS given at the NantesJS Meetup14 on 2015.11.19*
+
+Slides: http://yanndanthu.github.io/slides/meteorjs-nantesjs2015/
+
+Demo: https://github.com/YannDanthu/chat-app
