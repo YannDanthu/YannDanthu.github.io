@@ -3,7 +3,7 @@
 
 Je compte recycler un vieux shuttle SN41G2 en HTPC.
 
-image:images/030417_shuttle.jpg[align="center"]
+image:030417_shuttle.jpg[align="center"]
 
 Bon il faut le dire, le shuttle avait de la gueule quand il est sorti.
 Petit, sobre, tout alu et ce qu’il faut en connexion façade.
@@ -19,13 +19,13 @@ Bref il a fait son temps (depuis longtemps déjà) et plutôt que de moisir dans
 [underline]Maintenant passons aux nouvelles pièces :)
 Comme j’ai 2 barrettes de SO-DIMM j’opte pour la mini-itx Point Of View 330 (MB/ION330 ou MB330 pour les intimes, pas la 330-1 parce que cette dernière n’est pas en SO-DIMM)
 
-image:images/ion-mb330.jpg[align="center"]
+image:ion-mb330.jpg[align="center"]
 
 Cette carte intègre ce qu’il faut: du sata, de l’usb et de l’hdmi (pour plus de détail, une belle image link:http://www.appinformatica.com/imf/placas-base-intel-point-of-view-p.b.-ion-mb330-m-itx-nvidiamcp7a-ion-1g.jpg[placas-base-intel-point-of-view-p.b.-ion-mb330-m-itx-nvidiamcp7a-ion-1g.jpg])
 Et pour l’alimentation il faut quelque chose de silencieux comme il se doit.
 Donc une picoPSU est tout simplement ce qu’il faut dans ce cas là !
 
-image:images/1867-picopsu-150-xt.jpg[align="center"]
+image:1867-picopsu-150-xt.jpg[align="center"]
 
 Il ne reste qu’un transfo pour délivrer du 12v 5A et le tour est joué (je dois avoir ça dans des cartons, sinon ben faudra sortir le porte-feuille)
 
