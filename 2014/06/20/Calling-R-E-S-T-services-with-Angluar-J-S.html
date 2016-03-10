@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Calling REST services with AngluarJS</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//YannDanthu.github.io/themes/Roon/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:400,700,400italic,700italic|Open+Sans:400italic,700italic,700,400">
+    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/Roon/assets/css/screen.css?v=1.0.0" />
+
+    <link rel="canonical" href="https://YannDanthu.github.io/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html" />
+    
+    <meta property="og:site_name" content="Yann&#x27;s blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Calling REST services with AngluarJS" />
+    <meta property="og:description" content="We have seen the server side part of REST with Spring MVC. Now its time of getting to the frontend side with AngularJS. I will try to do it simple and accurate. ;) Goal: How to request REST service and handle..." />
+    <meta property="og:url" content="https://YannDanthu.github.io/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html" />
+    <meta property="article:published_time" content="2014-06-19T22:00:00.000Z" />
+    <meta property="article:modified_time" content="2016-03-10T14:48:43.652Z" />
+    <meta property="article:tag" content="angularjs" />
+    <meta property="article:tag" content="rest" />
+    <meta property="article:tag" content="java" />
+    <meta property="article:tag" content="web" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Calling REST services with AngluarJS" />
+    <meta name="twitter:description" content="We have seen the server side part of REST with Spring MVC. Now its time of getting to the frontend side with AngularJS. I will try to do it simple and accurate. ;) Goal: How to request REST service and handle..." />
+    <meta name="twitter:url" content="https://YannDanthu.github.io/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Yann&#x27;s blog",
+    "author": {
+        "@type": "Person",
+        "name": "Yann Danthu",
+        "image": "https://avatars.githubusercontent.com/u/7732947?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": "http://yann.danthu.com"
+    },
+    "headline": "Calling REST services with AngluarJS",
+    "url": "https://YannDanthu.github.io/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html",
+    "datePublished": "2014-06-19T22:00:00.000Z",
+    "dateModified": "2016-03-10T14:48:43.652Z",
+    "keywords": "angularjs,  rest,  java,  web",
+    "description": "We have seen the server side part of REST with Spring MVC. Now its time of getting to the frontend side with AngularJS. I will try to do it simple and accurate. ;) Goal: How to request REST service and handle..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="Yann&#x27;s blog" href="https://YannDanthu.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-angularjs tag-rest tag-java tag-web  noimage">
+
+    
+
+
+    <article role="main" class="">
+        <header>
+            <a href="https://YannDanthu.github.io" id="home_link">«</a>
+            <div class="meta"><time datetime="2014-06-20"><a href="/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html">June 20, 2014</a></time> <span class="count" id="js-reading-time"></span></div>
+            <h1>Calling REST services with AngluarJS</h1>
+        </header>
+
+        <div class="text" id="js-post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have seen the server side part of <a href="http://yann.danthu.com/blog/2014/05/rest-with-spring-mvc/">REST with Spring MVC</a>.
+Now its time of getting to the frontend side with AngularJS.
+I will try to do it simple and accurate. ;)</p>
+</div>
+<div class="paragraph">
+<p><strong>Goal:</strong> How to request REST service and handle response with AngularJS.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s use our REST service created with Spring framework in previous post and create a simple web ui for it.
+In this little tutorial we will:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>create HTML views to display list of Courses, show detail of a Course and create a new Course</p>
+</li>
+<li>
+<p>use AngularJS ng-view directive</p>
+</li>
+<li>
+<p>use AngularJS ng-model directive</p>
+</li>
+<li>
+<p>use AngularJS controller to request REST service using $resource</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_angular_service_to_request_rest_service">Angular Service to request REST service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s create the Angular Service to access the REST web service we have created to serve the Course resource.
+We will use the $resource object dedicated to RESTful interaction.
+Check how the local access methods are defined and mapped to the HTTP method.
+The ‘query’ method will return the Course list, this is why we specify “isArray: true”.</p>
+</div>
+<div class="paragraph">
+<p><strong>services.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* Services */
+var services = angular.module('courseApp.services', ['ngResource']);
+
+services.factory('Course', function($resource) {
+return $resource('/tuto-rest-spring/rest/courses/:id', {id: '@id'}, {
+        get: { method: 'GET' },
+        query: { method: 'GET', isArray: true },
+        create: { method: 'PUT' },
+        remove: { method: 'DELETE', params: {id: '@id'} }
+   })
+});</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_angular_application">Angular application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s create our app module and add the courseApp.services dependency.</p>
+</div>
+<div class="paragraph">
+<p><strong>application.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* App Module */
+
+//Create an application module.
+var app = angular.module( 'courseApp', ['courseApp.services'] );</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_controller">Controller</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s start with a minimalist controller. Just one with default behaviour would be to fetch the Course list.
+Courses’ list will be stored in the $scope.course</p>
+</div>
+<div class="paragraph">
+<p><strong>controller.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* Controllers */
+
+function CourseController($scope, Course) {
+$scope.courses = Course.query();
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See how easy it is to query the REST webservice.
+The controller will be completed as we progress in the tutorial.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_views">Views</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s create the views to display the Course list, the detail of a Course and one to create a new Course.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_course_list_view">Course list view</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Goal:</strong> list the Course elements (name + short description) and enable action (view detail, delete, create new Course).</p>
+</div>
+<div class="paragraph">
+<p><strong>course-list.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;div id="courseList"&gt;
+    &lt;h2&gt;Courses list ({{courses.length}})&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li ng-repeat="course in courses"&gt;
+            &lt;a href="" ng-click="gotoCourseDetailPage(course)"&gt;&lt;span class="courseTitle"&gt;{{course.name}}&lt;/span&gt;&lt;/a&gt; :
+            &lt;span class="courseDescription"&gt;{{course.description | filter:ellipsis:20}}&lt;/span&gt; &amp;nbsp;
+            &lt;button class="button" ng-click="deleteCourse(course)"&gt;X&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button ng-click="gotoCourseNewPage()"&gt;Add&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This view uses 3 angular concepts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>double curly braces markup: {{courses.length}} is replaced by its content evaluation, which means it returns the length value of the courses array defined in the controller (no need to specify scope).</p>
+</li>
+<li>
+<p><a href="https://docs.angularjs.org/api/ng/directive/ngRepeat">ng-repeat</a> directive: instanciate a template per item.</p>
+</li>
+<li>
+<p><a href="https://docs.angularjs.org/api/ng/directive/ngClick">ng-click</a> directive: specify behaviour on click event.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Check git for the other views.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_display_the_views">Display the views</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We want the display the view dedicated to current action.
+To do this we can use the ng-views directive, but also the ng-switch directive in order to switch to the needed view.
+We will see both in order to be aware of the differences and impact on controller.</p>
+</div>
+<div class="sect2">
+<h3 id="_ng_switch">ng-switch</h3>
+<div class="paragraph">
+<p>Ok, let’s start with the main page index.html.
+Using ng-switch and ng-include is a good combo.</p>
+</div>
+<div class="paragraph">
+<p><strong>index.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;!doctype html&gt;
+&lt;html ng-app="courseApp"&gt;
+&lt;head&gt;
+&lt;title&gt;Course.ng&lt;/title&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;META HTTP-EQUIV="Pragma" CONTENT="no-cache"&gt;
+&lt;link href="css/style.css" rel="stylesheet" /&gt;
+&lt;script src="js/libs/angular-1.3.0.js"&gt;&lt;/script&gt;
+&lt;script src="js/libs/angular-resource-1.3.0.js"&gt;&lt;/script&gt;
+&lt;script src="js/libs/angular-route-1.3.0.js"&gt;&lt;/script&gt;
+&lt;script src="js/app/application.js"&gt;&lt;/script&gt;
+&lt;script src="js/app/services.js"&gt;&lt;/script&gt;
+&lt;script src="js/app/controllers.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body ng-controller="CourseController"&gt;
+  &lt;div id="body"&gt;
+
+    &lt;div id="page"&gt;
+
+      &lt;div id="pageHeader"&gt;
+        &lt;h1&gt;Course.ng&lt;/h1&gt;
+      &lt;/div&gt;
+
+      &lt;div id="pageBody" &gt;
+        &lt;div&gt;{{courseView}}
+          &lt;div ng-switch="courseView"&gt;
+            &lt;div ng-switch-when="new"&gt;
+              &lt;div ng-include src=" views.create "&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div ng-switch-when="list"&gt;
+              &lt;div ng-include src=" views.list "&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div ng-switch-when="detail"&gt;
+              &lt;div ng-include src=" views.detail "&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we use the <a href="https://docs.angularjs.org/api/ng/directive/ngSwitch">ng-switch</a> directive to display the desire views according to the courseView value.
+<a href="https://docs.angularjs.org/api/ng/directive/ngInclude">ng-include</a> is also another angular directive enabling external HTML fragment to be included in the current page.
+Notice that the src attribute expects an expression not an url. So if you want to put the view link directly in the attribute value, put single quote around src=" 'views/views-list.html' "</p>
+</div>
+<div class="paragraph">
+<p>Our updated controller now look like this:</p>
+</div>
+<div class="paragraph">
+<p><strong>controller.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* Controllers */
+
+function CourseController($scope, Course) {
+  // define the views
+  $scope.views = {create: 'views/course-new.html',
+          detail: 'views/course-detail.html',
+          list: 'views/course-list.html'};
+
+  // default view
+  $scope.courseView = "list";
+
+  // default behaviour
+  $scope.courses = Course.query();
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There is a specificity about ng-include and $scope.
+Like many other before me and many more after me I suppose, I have experiment this with the create Course form.</p>
+</div>
+<div class="paragraph">
+<p>Check <a href="https://github.com/angular/angular.js/wiki/Understanding-Scopes">scope</a> full details.
+To be short, the update made in the form using ng-model will not update the scope in the controller.</p>
+</div>
+<div class="paragraph">
+<p>To fix this, we have to create an object in the model and specifically use the object model in the <code>ng-model. ng-model=" model.newcourse.name "`</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ng_view">ng-view</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.angularjs.org/api/ngRoute/directive/ngView">ng-view</a> directive is part of the ngRoute module.</p>
+</div>
+<div class="paragraph">
+<p>How the main page looks like ?</p>
+</div>
+<div class="paragraph">
+<p><strong>index.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;!doctype html&gt;
+&lt;html ng-app="courseApp"&gt;
+&lt;head&gt;
+    &lt;title&gt;Course.ng&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;link href="css/style.css" rel="stylesheet"/&gt;
+    &lt;script src="js/libs/angular-1.3.0.js"&gt;&lt;/script&gt;
+    &lt;script src="js/libs/angular-resource-1.3.0.js"&gt;&lt;/script&gt;
+    &lt;script src="js/libs/angular-route-1.3.0.js"&gt;&lt;/script&gt;
+    &lt;script src="js/app/application.js"&gt;&lt;/script&gt;
+    &lt;script src="js/app/services.js"&gt;&lt;/script&gt;
+    &lt;script src="js/app/controllers.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="body"&gt;
+
+    &lt;div id="page"&gt;
+
+        &lt;div id="pageHeader"&gt;
+            &lt;h1&gt;Course.ng&lt;/h1&gt;
+        &lt;/div&gt;
+
+        &lt;div id="pageBody"&gt;
+            &lt;div ng-view&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Looks great right ? No logic about view display in the html page.</p>
+</div>
+<div class="paragraph">
+<p>But how are the views displayed ?</p>
+</div>
+<div class="paragraph">
+<p>Let see the angular application module for this:</p>
+</div>
+<div class="paragraph">
+<p><strong>application.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>angular.module('courseApp', ['ngRoute', 'courseApp.services']).
+  config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+      $routeProvider.
+        when('/courses',     {templateUrl:'views/course-list.html',   controller:CourseListController}).
+        when('/courses/new', {templateUrl:'views/course-new.html',    controller:CourseNewController}).
+        when('/courses/:id', {templateUrl:'views/course-detail.html', controller:CourseDetailController}).
+        otherwise({redirectTo:'/courses'});
+
+}]);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, we define template and controller for different routes (one view → one controller).</p>
+</div>
+<div class="paragraph">
+<p>The template of the current route is rendered in the view.</p>
+</div>
+<div class="paragraph">
+<p>This has an impact on the controller as we work with location path to change views instead of a property.</p>
+</div>
+<div class="paragraph">
+<p><strong>controller.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* Controllers */
+
+function CourseListController($scope, $location, Course) {
+    // default behavior
+    $scope.courses = Course.query();
+
+  // load the view "create Course"
+    $scope.gotoCourseNewPage = function() {
+        $location.path("/courses/new");
+    };
+
+  // delete specific Course
+    $scope.deleteCourse = function(data) {
+        Course.remove({
+            id : data.id
+        }, {}, function() {
+            $location.path('/');
+        });
+    };
+
+  // get Course detail
+    $scope.gotoCoursePageDetail = function(course) {
+        $location.path("/courses/" + course.id);
+    };
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, we have seen :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>how to define an angularJs application</p>
+</li>
+<li>
+<p>how to define an angluarJs controller</p>
+</li>
+<li>
+<p>the default angularJS binding using double curlybraces {{}}</p>
+</li>
+<li>
+<p>how to define a service and use the $resource resource for REST</p>
+</li>
+<li>
+<p>how to use the ng-view directive</p>
+</li>
+<li>
+<p>ng-repeat, ng-switch, ng-click, ng-include, ng-model (see course-new.html on git)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Check the <a href="https://github.com/YannDanthu/tuto-rest-spring">tuto-rest-spring</a> on github for full resources.</p>
+</div>
+</div>
+</div>
+        </div>
+
+        <menu>
+            <a href="" id="btn_share" class="btn" title="Share">
+                <span aria-hidden="true" data-icon="S"></span>
+                <strong>Share</strong>
+            </a>
+            <a href="http://twitter.com/share?text=Calling%20REST%20services%20with%20AngluarJS&url=https://YannDanthu.github.io/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" id="btn_comment" class="btn" target="_blank">
+                <span aria-hidden="true" data-icon="C"></span> Comment on Twitter
+            </a>
+        </menu>
+
+
+        <footer class="post-footer" role="contentinfo">
+
+            <div class="vcard">
+                <!-- <a href="https://YannDanthu.github.io/rss" id="btn_feed" class="btn" title="Feed" target="_blank">
+                    <span aria-hidden="true" data-icon=")"></span>
+                    <strong>Feed</strong>
+                </a> -->
+
+                <a href="" class="photo">
+                    <span style="background-image: url('https://avatars.githubusercontent.com/u/7732947?v=3');">
+                        <img src="https://avatars.githubusercontent.com/u/7732947?v=3" alt="Yann Danthu">
+                    </span>
+                </a>
+
+                <div class="details">
+                    <h4><a href="" class="url n">Yann Danthu</a></h4>
+                    Nantes, France<br>
+                    <a href="http://yann.danthu.com" class="js-remove-domain-schema">http://yann.danthu.com</a>
+                </div>
+            </div>
+
+            <div id="user_bio">
+                <div class="inner">
+                    
+                </div>
+            </div>
+
+        </footer>
+
+
+
+
+    </article>
+
+    <div id="share_modal">
+        <div class="wrap">
+            <div class="inner">
+                <header>
+                    Share
+                    <a href="" class="close" title="Close">&times;</a>
+                </header>
+
+                <div class="roon-share-links">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+                    <div id="fb-elems">
+                        <div id="fb-root"></div>
+                        <script>(function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=463438580397968";
+                        fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));</script>
+                        <div class="fb-like" data-send="false" data-layout="button_count" data-width="110" data-show-faces="false" data-font="arial"></div>
+                    </div>
+
+                    <div id="pinit-btn">
+                        <a href="//pinterest.com/pin/create/button/?url=https://YannDanthu.github.io/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html&amp;description=Calling%20REST%20services%20with%20AngluarJS-Yann's%20blog " data-pin-do="buttonPin" data-pin-config="beside"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png"></a>
+                        <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+        <a href="https://YannDanthu.github.io" id="blog_badge">
+            <span style="background-image: url('http://yann.danthu.com/moi-circle.png');">Yann&#x27;s blog</span>
+        </a>
+
+
+    <script>
+
+            function get_text(el) {
+                ret = "";
+                var length = el.childNodes.length;
+                for(var i = 0; i < length; i++) {
+                    var node = el.childNodes[i];
+                    if(node.nodeType != 8) {
+                        ret += node.nodeType != 1 ? node.nodeValue : get_text(node);
+                    }
+                }
+                return ret;
+            }
+            function reading_time () {
+                var post_content = document.getElementById('js-post-content');
+                if (post_content) {
+                    var words = get_text(post_content),
+                        count = words.split(/\s+/).length,
+                        read_time = Math.ceil((count / 150)),
+                        read_time_node = document.createTextNode(read_time + ' min read');
+                    document.getElementById('js-reading-time').appendChild(read_time_node);
+                }
+            }
+
+        function no_schema_links () {
+            var links = document.querySelectorAll('.js-remove-domain-schema');
+            if (links) {
+                for (i = 0; i < links.length; ++i) {
+                    var link = links[i],
+                        text = link.innerHTML,
+                        no_schema = text.replace(/.*?:\/\//g, "");
+                    link.innerHTML = no_schema;
+                }
+            }
+        }
+
+        window.onload = function () {
+            no_schema_links();
+
+            reading_time();
+        }
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+        <script>
+            $(function(){
+                var share_modal = $("#share_modal"),
+                    update_social_links = true;
+
+                $("#btn_share").click(function(){
+                    var that = $(this);
+                    share_modal.fadeIn(200);
+                    return false;
+                });
+
+                share_modal.click(function(e){
+                    if (e.target.className == "wrap" || e.target.id == "share_modal") {
+                        share_modal.fadeOut(200);
+                    }
+                    return false;
+                });
+
+                share_modal.find("div.inner > header > a.close").click(function(){
+                    share_modal.fadeOut(200);
+                    return false;
+                });
+            });
+        </script>
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-50478688-2', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+</body>
+</html>
