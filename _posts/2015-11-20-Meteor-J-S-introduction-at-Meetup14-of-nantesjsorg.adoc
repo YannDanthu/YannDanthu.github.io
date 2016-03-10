@@ -1,4 +1,5 @@
 # MeteorJS introduction at Meetup14 of nantesjs.org
+:published_at: 2015-11-20
 :hp-tags: meteorjs, talk
 
 *Here are my slides and demo of my talk on MeteorJS given at the NantesJS Meetup14 on 2015.11.19*
