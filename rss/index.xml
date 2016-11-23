@@ -1,0 +1,1294 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;-)]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 23 Nov 2016 15:39:06 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[MeteorJS introduction at Meetup14 of nantesjs.org]]></title><description><![CDATA[<div class="paragraph">
+<p><strong>Here are my slides and demo of my talk on MeteorJS given at the NantesJS Meetup14 on 2015.11.19</strong></p>
+</div>
+<div class="paragraph">
+<p>Slides: <a href="http://yanndanthu.github.io/slides/meteorjs-nantesjs2015/" class="bare">http://yanndanthu.github.io/slides/meteorjs-nantesjs2015/</a></p>
+</div>
+<div class="paragraph">
+<p>Demo: <a href="https://github.com/YannDanthu/chat-app" class="bare">https://github.com/YannDanthu/chat-app</a></p>
+</div>]]></description><link>https://YannDanthu.github.io/2015/11/20/Meteor-J-S-introduction-at-Meetup14-of-nantesjsorg.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2015/11/20/Meteor-J-S-introduction-at-Meetup14-of-nantesjsorg.html</guid><category><![CDATA[meteorjs]]></category><category><![CDATA[ talk]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Fri, 20 Nov 2015 00:00:00 GMT</pubDate></item><item><title><![CDATA[Meteor: data not correctly published after collection updated on server side.]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>I have experienced a strange behavior with Meteor publish lately.</strong><br>
+This was due to package vue:vue (<a href="https://atmospherejs.com/vue/vue" class="bare">https://atmospherejs.com/vue/vue</a>)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_problem_why_my_data_disappeared">Problem: why my data disappeared ?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Collection on client side was correct, with the expected data, until it was updated on server side.<br>
+Updating the collection from client side was working fine.</p>
+</div>
+<div class="paragraph">
+<p>Problem occurred when the data was updated form another client (or updated on server side directly in mongo for testing purpose).<br>
+In that case, the collection on client side was updated with the _id only. The rest of the data was removed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_how_it_looks_like">Example: how it looks like</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>at launch, verify collection content in web console:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">&gt; Test.find().fetch()
+
+{
+  '_id' : 'rFnC7ZpBjwAyCY4yE',
+  'name' : 'test'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>updating document in mongo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">meteor:PRIMARY&gt; test.update({ '_id': 'rFnC7ZpBjwAyCY4yE'}, {'name': 'updating'});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>checking back in the console the publish result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">&gt; Test.find().fetch()
+
+{ '_id' : 'rFnC7ZpBjwAyCY4yE' }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cause">Cause</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This was not a fresh meteor project but an already started project I was taking on.<br>
+In order to figure out what was that problem I did not encountered yet in the past, I started by removing packages reference one by one.<br>
+And finally found that vue:vue was the bad guy ;)</p>
+</div>
+<div class="paragraph">
+<p><a href="https://atmospherejs.com/vue/vue" class="bare">https://atmospherejs.com/vue/vue</a></p>
+</div>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2015/10/02/Meteor-data-not-correctly-published-after-collection-updated-on-server-side.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2015/10/02/Meteor-data-not-correctly-published-after-collection-updated-on-server-side.html</guid><category><![CDATA[meteorjs]]></category><category><![CDATA[ publish]]></category><category><![CDATA[ error]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Fri, 02 Oct 2015 00:00:00 GMT</pubDate></item><item><title><![CDATA[Some Angular.js resource for best practice]]></title><description><![CDATA[<div class="paragraph">
+<p><a href="http://trochette.github.io/Angular-Design-Patterns-Best-Practices/#/business_logic" class="bare">http://trochette.github.io/Angular-Design-Patterns-Best-Practices/#/business_logic</a></p>
+</div>]]></description><link>https://YannDanthu.github.io/2015/08/25/Some-Angularjs-resource-for-best-practice.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2015/08/25/Some-Angularjs-resource-for-best-practice.html</guid><category><![CDATA[Angular.js]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 GMT</pubDate></item><item><title><![CDATA[First post after hubpress.io install]]></title><description><![CDATA[<div class="paragraph">
+<p>Next step is to move my current wordpress blog to hubpress :)</p>
+</div>
+<div class="paragraph">
+<p>nice.</p>
+</div>]]></description><link>https://YannDanthu.github.io/2015/05/16/First-post-after-hubpressio-install.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2015/05/16/First-post-after-hubpressio-install.html</guid><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Sat, 16 May 2015 00:00:00 GMT</pubDate></item><item><title><![CDATA[Different ways to configure spring data in xml conf:]]></title><description><![CDATA[<div class="sect1">
+<h2 id="_spring_data_mongo_conf_using_factory">Spring data mongo conf using factory</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>&lt;!-- Spring data mongo conf using factory --&gt;
+&lt;mongo:mongo id="mongo" replica-set="${mongo.database.url}" /&gt;
+
+&lt;mongo:db-factory id="mongoDbFactory"
+                  mongo-ref="mongo"
+                  dbname="${mongo.database.name}"
+                  username="${mongo.database.username}"
+                  password="${mongo.database.password}"/&gt;
+
+&lt;bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"&gt;
+  &lt;constructor-arg ref="mongoDbFactory" /&gt;
+&lt;/bean&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_spring_data_mongo_conf_without_factory">Spring data mongo conf without factory</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>&lt;!-- Spring data mongo conf without factory --&gt;
+&lt;mongo:mongo id="mongo" replica-set="${mongo.database.url}" /&gt;
+&lt;bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials"&gt;
+  &lt;constructor-arg name="username" value="${mongo.database.username}"/&gt;
+  &lt;constructor-arg name="password" value="${mongo.database.password}"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"&gt;
+  &lt;constructor-arg name="mongo" ref="mongo"/&gt;
+  &lt;constructor-arg name="databaseName" value="${mongo.database.name}"/&gt;
+  &lt;constructor-arg name="userCredentials" ref="userCredentials"/&gt;
+&lt;/bean&gt;</pre>
+</div>
+</div>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2015/03/02/Different-ways-to-configure-spring-data-in-xml-conf.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2015/03/02/Different-ways-to-configure-spring-data-in-xml-conf.html</guid><category><![CDATA[java]]></category><category><![CDATA[ mongo]]></category><category><![CDATA[ spring]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Mon, 02 Mar 2015 00:00:00 GMT</pubDate></item><item><title><![CDATA[com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instance of * out of START_ARRAY token]]></title><description><![CDATA[<div class="paragraph">
+<p>I encounter this exception after a (massive) maven dependencies update which included CXF and Spring.
+The project was supposed to be updated with Jackson 2.3 but the stack shows that vesion 2.2.3 of jackson-databind is used.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instance of com.*.api.model.Request out of START_ARRAY token
+at [Source: &lt;a href="mailto:java.io.ByteArrayInputStream@7d1519c4"&gt;java.io.ByteArrayInputStream@7d1519c4&lt;/a&gt;; line: 1, column: 1]
+               at com.fasterxml.jackson.databind.JsonMappingException.from(JsonMappingException.java:164) ~[jackson-databind-2.2.3.jar:na]
+               at com.fasterxml.jackson.databind.DeserializationContext.mappingException(DeserializationContext.java:575) ~[jackson-databind-2.2.3.jar:na]
+               at com.fasterxml.jackson.databind.DeserializationContext.mappingException(DeserializationContext.java:569) ~[jackson-databind-2.2.3.jar:na]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This exception occured on deserializing a String to a Date with a @JsonFormat annotation on the model property</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@JsonFormat(pattern = "yyyy-MM-dd")</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Adding the following dependency solves the problem.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        &lt;dependency&gt;
+            &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
+            &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
+            &lt;version&gt;2.3.3&lt;/version&gt;
+        &lt;/dependency&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is kind of temporary fix, as the root cause comes from the project dependencies version that must be cross-checked.</p>
+</div>]]></description><link>https://YannDanthu.github.io/2014/10/02/comfasterxmljacksondatabind-Json-Mapping-Exception-Can-not-deserialize-instance-of-out-of-S-T-A-R-T-A-R-R-A-Y-token.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2014/10/02/comfasterxmljacksondatabind-Json-Mapping-Exception-Can-not-deserialize-instance-of-out-of-S-T-A-R-T-A-R-R-A-Y-token.html</guid><category><![CDATA[jackson]]></category><category><![CDATA[ json]]></category><category><![CDATA[ maven]]></category><category><![CDATA[ java]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Thu, 02 Oct 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[Nas4Free – migrate ZFS mirror to bunch of disk]]></title><description><![CDATA[<div class="sect1">
+<h2 id="_question">Question:</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>How to change a ZFS pool configuration made of mirror disks into a bunch of disks in nas4free ?</p>
+</div>
+<div class="paragraph">
+<p>This is in fact an easy process.</p>
+</div>
+<div class="paragraph">
+<p>To complete this task will use the command line zpool command and the nas4free synchronize features available in the Disks/ZFS/Configuration/Synchronize page.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_zfs_configuration">ZFS configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let say the ZFS pool is made of 2 virtual devices.</p>
+</div>
+<div class="paragraph">
+<p>Each virtual device is made of a 2 disks in mirror.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	zpool       ONLINE       0     0     0
+	  mirror-0  ONLINE       0     0     0
+	    ada2    ONLINE       0     0     0
+	    ada3    ONLINE       0     0     0
+	  mirror-1  ONLINE       0     0     0
+	    ada1    ONLINE       0     0     0
+	    ada4    ONLINE       0     0     0
+
+errors: No known data errors</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remove_one_disk_in_each_mirror">Remove one disk in each mirror:</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool detach zpool /dev/ada2
+$ zpool detach zpool /dev/ada1</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_zpool_status_after_removing_the_disks">ZPOOL status after removing the disks</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME      STATE     READ WRITE CKSUM
+	zpool     ONLINE       0     0     0
+	  ada3    ONLINE       0     0     0
+	  ada4    ONLINE       0     0     0
+
+errors: No known data errors</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nas4free_synchronise_zfs_configuration_in_gui">Nas4Free: synchronise zfs configuration in GUI</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Logged in nas4free GUI</p>
+</li>
+<li>
+<p>Go to: Disks &gt; ZFS section</p>
+</li>
+<li>
+<p>Click on Configuration tab</p>
+</li>
+<li>
+<p>Click on Synchronize sub-tab</p>
+</li>
+<li>
+<p>Finally, click on the synchronize button at the bottom of the page</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now your ZFS configuration will be updated in the GUI (check in “current” sub-tab)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_the_removed_disk_on_the_zfs_pool_to_get_a_bunch_of_4_disks">Add the removed disk on the ZFS pool to get a bunch of 4 disks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have removed one disk in each mirror virtual device, and updated the config in the GUI.</p>
+</div>
+<div class="paragraph">
+<p>We now have 2 disks left that we can add to the ZFS pool to get a bunch of 4 disks.</p>
+</div>
+<div class="paragraph">
+<p>How do we do that?</p>
+</div>
+<div class="paragraph">
+<p>Same process as above: add the disks and then synchronize the config in the GUI.</p>
+</div>
+<div class="sect2">
+<h3 id="_adding_disk_to_the_zfs_pool">Adding disk to the ZFS pool</h3>
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool add zpool /dev/ada1
+$ spool add zpool /dev/ada2</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_zfs_pool_status_after_adding_the_disks">ZFS pool status after adding the disks</h3>
+<div class="listingblock">
+<div class="content">
+<pre>$ zpool status
+  pool: zpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME      STATE     READ WRITE CKSUM
+	zpool     ONLINE       0     0     0
+	  ada3    ONLINE       0     0     0
+	  ada4    ONLINE       0     0     0
+	  ada1    ONLINE       0     0     0
+	  ada2    ONLINE       0     0     0
+
+errors: No known data errors</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_synchronize_zfs_config_in_gui">Synchronize ZFS config in GUI</h3>
+<div class="paragraph">
+<p>Do as mention in above section “synchronize ZFS config”</p>
+</div>
+<div class="paragraph">
+<p>And here you go :)</p>
+</div>
+</div>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2014/08/22/Nas4-Free-migrate-Z-F-S-mirror-to-bunch-of-disk.html</guid><category><![CDATA[NAS]]></category><category><![CDATA[ nas4free]]></category><category><![CDATA[ zfs]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Fri, 22 Aug 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[Calling REST services with AngluarJS]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have seen the server side part of <a href="http://yann.danthu.com/blog/2014/05/rest-with-spring-mvc/">REST with Spring MVC</a>.
+Now its time of getting to the frontend side with AngularJS.
+I will try to do it simple and accurate. ;)</p>
+</div>
+<div class="paragraph">
+<p><strong>Goal:</strong> How to request REST service and handle response with AngularJS.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s use our REST service created with Spring framework in previous post and create a simple web ui for it.
+In this little tutorial we will:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>create HTML views to display list of Courses, show detail of a Course and create a new Course</p>
+</li>
+<li>
+<p>use AngularJS ng-view directive</p>
+</li>
+<li>
+<p>use AngularJS ng-model directive</p>
+</li>
+<li>
+<p>use AngularJS controller to request REST service using $resource</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_angular_service_to_request_rest_service">Angular Service to request REST service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s create the Angular Service to access the REST web service we have created to serve the Course resource.
+We will use the $resource object dedicated to RESTful interaction.
+Check how the local access methods are defined and mapped to the HTTP method.
+The ‘query’ method will return the Course list, this is why we specify “isArray: true”.</p>
+</div>
+<div class="paragraph">
+<p><strong>services.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* Services */
+var services = angular.module('courseApp.services', ['ngResource']);
+
+services.factory('Course', function($resource) {
+return $resource('/tuto-rest-spring/rest/courses/:id', {id: '@id'}, {
+        get: { method: 'GET' },
+        query: { method: 'GET', isArray: true },
+        create: { method: 'PUT' },
+        remove: { method: 'DELETE', params: {id: '@id'} }
+   })
+});</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_angular_application">Angular application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s create our app module and add the courseApp.services dependency.</p>
+</div>
+<div class="paragraph">
+<p><strong>application.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* App Module */
+
+//Create an application module.
+var app = angular.module( 'courseApp', ['courseApp.services'] );</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_controller">Controller</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s start with a minimalist controller. Just one with default behaviour would be to fetch the Course list.
+Courses’ list will be stored in the $scope.course</p>
+</div>
+<div class="paragraph">
+<p><strong>controller.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* Controllers */
+
+function CourseController($scope, Course) {
+$scope.courses = Course.query();
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See how easy it is to query the REST webservice.
+The controller will be completed as we progress in the tutorial.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_views">Views</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s create the views to display the Course list, the detail of a Course and one to create a new Course.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_course_list_view">Course list view</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Goal:</strong> list the Course elements (name + short description) and enable action (view detail, delete, create new Course).</p>
+</div>
+<div class="paragraph">
+<p><strong>course-list.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;div id="courseList"&gt;
+    &lt;h2&gt;Courses list ({{courses.length}})&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li ng-repeat="course in courses"&gt;
+            &lt;a href="" ng-click="gotoCourseDetailPage(course)"&gt;&lt;span class="courseTitle"&gt;{{course.name}}&lt;/span&gt;&lt;/a&gt; :
+            &lt;span class="courseDescription"&gt;{{course.description | filter:ellipsis:20}}&lt;/span&gt; &amp;nbsp;
+            &lt;button class="button" ng-click="deleteCourse(course)"&gt;X&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button ng-click="gotoCourseNewPage()"&gt;Add&lt;/button&gt;
+&lt;/div&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This view uses 3 angular concepts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>double curly braces markup: {{courses.length}} is replaced by its content evaluation, which means it returns the length value of the courses array defined in the controller (no need to specify scope).</p>
+</li>
+<li>
+<p><a href="https://docs.angularjs.org/api/ng/directive/ngRepeat">ng-repeat</a> directive: instanciate a template per item.</p>
+</li>
+<li>
+<p><a href="https://docs.angularjs.org/api/ng/directive/ngClick">ng-click</a> directive: specify behaviour on click event.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Check git for the other views.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_display_the_views">Display the views</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We want the display the view dedicated to current action.
+To do this we can use the ng-views directive, but also the ng-switch directive in order to switch to the needed view.
+We will see both in order to be aware of the differences and impact on controller.</p>
+</div>
+<div class="sect2">
+<h3 id="_ng_switch">ng-switch</h3>
+<div class="paragraph">
+<p>Ok, let’s start with the main page index.html.
+Using ng-switch and ng-include is a good combo.</p>
+</div>
+<div class="paragraph">
+<p><strong>index.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;!doctype html&gt;
+&lt;html ng-app="courseApp"&gt;
+&lt;head&gt;
+&lt;title&gt;Course.ng&lt;/title&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;META HTTP-EQUIV="Pragma" CONTENT="no-cache"&gt;
+&lt;link href="css/style.css" rel="stylesheet" /&gt;
+&lt;script src="js/libs/angular-1.3.0.js"&gt;&lt;/script&gt;
+&lt;script src="js/libs/angular-resource-1.3.0.js"&gt;&lt;/script&gt;
+&lt;script src="js/libs/angular-route-1.3.0.js"&gt;&lt;/script&gt;
+&lt;script src="js/app/application.js"&gt;&lt;/script&gt;
+&lt;script src="js/app/services.js"&gt;&lt;/script&gt;
+&lt;script src="js/app/controllers.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body ng-controller="CourseController"&gt;
+  &lt;div id="body"&gt;
+
+    &lt;div id="page"&gt;
+
+      &lt;div id="pageHeader"&gt;
+        &lt;h1&gt;Course.ng&lt;/h1&gt;
+      &lt;/div&gt;
+
+      &lt;div id="pageBody" &gt;
+        &lt;div&gt;{{courseView}}
+          &lt;div ng-switch="courseView"&gt;
+            &lt;div ng-switch-when="new"&gt;
+              &lt;div ng-include src=" views.create "&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div ng-switch-when="list"&gt;
+              &lt;div ng-include src=" views.list "&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div ng-switch-when="detail"&gt;
+              &lt;div ng-include src=" views.detail "&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we use the <a href="https://docs.angularjs.org/api/ng/directive/ngSwitch">ng-switch</a> directive to display the desire views according to the courseView value.
+<a href="https://docs.angularjs.org/api/ng/directive/ngInclude">ng-include</a> is also another angular directive enabling external HTML fragment to be included in the current page.
+Notice that the src attribute expects an expression not an url. So if you want to put the view link directly in the attribute value, put single quote around src=" 'views/views-list.html' "</p>
+</div>
+<div class="paragraph">
+<p>Our updated controller now look like this:</p>
+</div>
+<div class="paragraph">
+<p><strong>controller.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* Controllers */
+
+function CourseController($scope, Course) {
+  // define the views
+  $scope.views = {create: 'views/course-new.html',
+          detail: 'views/course-detail.html',
+          list: 'views/course-list.html'};
+
+  // default view
+  $scope.courseView = "list";
+
+  // default behaviour
+  $scope.courses = Course.query();
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There is a specificity about ng-include and $scope.
+Like many other before me and many more after me I suppose, I have experiment this with the create Course form.</p>
+</div>
+<div class="paragraph">
+<p>Check <a href="https://github.com/angular/angular.js/wiki/Understanding-Scopes">scope</a> full details.
+To be short, the update made in the form using ng-model will not update the scope in the controller.</p>
+</div>
+<div class="paragraph">
+<p>To fix this, we have to create an object in the model and specifically use the object model in the <code>ng-model. ng-model=" model.newcourse.name "`</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ng_view">ng-view</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.angularjs.org/api/ngRoute/directive/ngView">ng-view</a> directive is part of the ngRoute module.</p>
+</div>
+<div class="paragraph">
+<p>How the main page looks like ?</p>
+</div>
+<div class="paragraph">
+<p><strong>index.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;!doctype html&gt;
+&lt;html ng-app="courseApp"&gt;
+&lt;head&gt;
+    &lt;title&gt;Course.ng&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;link href="css/style.css" rel="stylesheet"/&gt;
+    &lt;script src="js/libs/angular-1.3.0.js"&gt;&lt;/script&gt;
+    &lt;script src="js/libs/angular-resource-1.3.0.js"&gt;&lt;/script&gt;
+    &lt;script src="js/libs/angular-route-1.3.0.js"&gt;&lt;/script&gt;
+    &lt;script src="js/app/application.js"&gt;&lt;/script&gt;
+    &lt;script src="js/app/services.js"&gt;&lt;/script&gt;
+    &lt;script src="js/app/controllers.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="body"&gt;
+
+    &lt;div id="page"&gt;
+
+        &lt;div id="pageHeader"&gt;
+            &lt;h1&gt;Course.ng&lt;/h1&gt;
+        &lt;/div&gt;
+
+        &lt;div id="pageBody"&gt;
+            &lt;div ng-view&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Looks great right ? No logic about view display in the html page.</p>
+</div>
+<div class="paragraph">
+<p>But how are the views displayed ?</p>
+</div>
+<div class="paragraph">
+<p>Let see the angular application module for this:</p>
+</div>
+<div class="paragraph">
+<p><strong>application.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>angular.module('courseApp', ['ngRoute', 'courseApp.services']).
+  config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+      $routeProvider.
+        when('/courses',     {templateUrl:'views/course-list.html',   controller:CourseListController}).
+        when('/courses/new', {templateUrl:'views/course-new.html',    controller:CourseNewController}).
+        when('/courses/:id', {templateUrl:'views/course-detail.html', controller:CourseDetailController}).
+        otherwise({redirectTo:'/courses'});
+
+}]);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, we define template and controller for different routes (one view → one controller).</p>
+</div>
+<div class="paragraph">
+<p>The template of the current route is rendered in the view.</p>
+</div>
+<div class="paragraph">
+<p>This has an impact on the controller as we work with location path to change views instead of a property.</p>
+</div>
+<div class="paragraph">
+<p><strong>controller.js</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/* Controllers */
+
+function CourseListController($scope, $location, Course) {
+    // default behavior
+    $scope.courses = Course.query();
+
+  // load the view "create Course"
+    $scope.gotoCourseNewPage = function() {
+        $location.path("/courses/new");
+    };
+
+  // delete specific Course
+    $scope.deleteCourse = function(data) {
+        Course.remove({
+            id : data.id
+        }, {}, function() {
+            $location.path('/');
+        });
+    };
+
+  // get Course detail
+    $scope.gotoCoursePageDetail = function(course) {
+        $location.path("/courses/" + course.id);
+    };
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, we have seen :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>how to define an angularJs application</p>
+</li>
+<li>
+<p>how to define an angluarJs controller</p>
+</li>
+<li>
+<p>the default angularJS binding using double curlybraces {{}}</p>
+</li>
+<li>
+<p>how to define a service and use the $resource resource for REST</p>
+</li>
+<li>
+<p>how to use the ng-view directive</p>
+</li>
+<li>
+<p>ng-repeat, ng-switch, ng-click, ng-include, ng-model (see course-new.html on git)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Check the <a href="https://github.com/YannDanthu/tuto-rest-spring">tuto-rest-spring</a> on github for full resources.</p>
+</div>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2014/06/20/Calling-R-E-S-T-services-with-Angluar-J-S.html</guid><category><![CDATA[angularjs]]></category><category><![CDATA[ rest]]></category><category><![CDATA[ java]]></category><category><![CDATA[ web]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Fri, 20 Jun 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[REST with Spring MVC]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>[underline] Goal</p>
+</div>
+<div class="paragraph">
+<p>Introduction to REST, JSON and Spring MVC.
+To do so, let’s implement a REST service with Spring MVC.</p>
+</div>
+<div class="paragraph">
+<p>[underline] RESTFul principles</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Uniform interface</p>
+</li>
+<li>
+<p>Stateless</p>
+</li>
+<li>
+<p>Cacheable</p>
+</li>
+<li>
+<p>Client Server mode</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Where SOAP services are based on verbs (like methods exposed by an interface) , REST are based on resources.
+When designing REST web service, use nouns not verbs, use path navigation not request attributes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s build a simple REST service and implement it with Spring MVC.
+First part, the server side part (this post).
+Second part, the client side part (<a href="http://yann.danthu.com/blog/2014/06/calling-rest-services-with-angluarjs/">available here</a>) with AngularJS</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_resource">The resource</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>package com.danthu.tutorial.spring.rest.model;
+/**
+ * REST with Spring MVC
+ * @author Yann Danthu
+ */
+public class Course {
+  private String id;
+  private String name;
+  private String description;
+  public String getId() {
+    return id;
+  }
+  public void setId(String id) {
+    this.id = id;
+  }
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+  public String getDescription() {
+    return description;
+  }
+  public void setDescription(String description) {
+    this.description = description;
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_rest_interface">The REST interface</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>GET /courses to retrieve all Course elements
+PUT /courses to create a new Course element
+GET /courses/{id} to retrieve a specific Course element of given id ( e.g. /courses/1234 )
+DELETE /courses/{id} to delete a Course element</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_spring_mvc_part">Spring MVC part</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Below is the Course spring controller.
+See how easy it is to configure the controller according to the REST interface we have defined.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>package com.danthu.tutorial.spring.rest.controller;
+// imports go here (did not show them for readability)
+
+/**
+* REST with Spring MVC
+* @author Yann Danthu
+*/
+@Controller
+@RequestMapping("/courses")
+public class CourseController {
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List&lt;Course&gt; getAllCourses() {
+        List&lt;Course&gt; orders = courseRepository.getAll();
+        return orders;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Course getById(@PathVariable String id) {
+        return courseRepository.get(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void save(@RequestBody Course course) {
+        courseRepository.save(course);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String id) {
+        courseRepository.delete(id);
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Spring configuration
+Let’s write the Spring configuration xml file resource/spring/spring.xml</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd"&gt;
+
+    &lt;!-- Scan components for annotations within the configured package (like @Controller)--&gt;
+    &lt;context:component-scan base-package="com.danthu.tutorial.spring.controller"/&gt;
+
+    &lt;!--  Activate annotation dispatcher configuration (like @RequestMapping)--&gt;
+    &lt;mvc:annotation-driven/&gt;
+
+&lt;/beans&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The REST service will be embedded in a web app, so lets define the WEB-INF/web.xml file.
+(We will talk about Spring Boot in another post)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;servlet&gt;
+    &lt;servlet-name&gt;Spring&lt;/servlet-name&gt;
+    &lt;servlet-class&amp;gtorg.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;classpath:/spring/spring.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;Spring&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/rest/*&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maven_dependencies">Maven dependencies</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>  &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+    &lt;version&gt;4.0.5.RELEASE&lt;/version&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+    &lt;version&gt;4.0.5.RELEASE&lt;/version&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.codehaus.jackson&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-mapper-asl&lt;/artifactId&gt;
+    &lt;version&gt;1.9.13&lt;/version&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;3.0-alpha-1&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+  &lt;/dependency&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have seen quickly how to design a simple REST api.
+How to implement it with a Spring MVC controller.
+How to configure Spring with xml configuration file (annotation configuration will be part of a future post).
+Minimum dependencies necessary for Spring MVC REST with JSON output.</p>
+</div>
+<div class="paragraph">
+<p>Full sources are available on github <a href="https://github.com/YannDanthu/tuto-rest-spring">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>[underline] Next posts to come:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the client side in angularJS</p>
+</li>
+<li>
+<p>the power of @Autowired spring feature.</p>
+</li>
+<li>
+<p>expose a REST service with Spring Data and MongoDB.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2014/05/28/R-E-S-T-with-Spring-M-V-C.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2014/05/28/R-E-S-T-with-Spring-M-V-C.html</guid><category><![CDATA[java]]></category><category><![CDATA[ json]]></category><category><![CDATA[ rest]]></category><category><![CDATA[ spring]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Wed, 28 May 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[IP GeoLocation with AngularJS]]></title><description><![CDATA[<div class="paragraph">
+<p>Your web site is available in different language and you want to select the one matching the client location.</p>
+</div>
+<div class="paragraph">
+<p>To be accurate we need to locate the client IP to retrieve the country it belongs to.</p>
+</div>
+<div class="paragraph">
+<p>How to do it fast and simple ? Let’s use an existing free IP lookup API that will locate the IP for us, and lets do the request with AngularJS :)</p>
+</div>
+<div class="paragraph">
+<p>One of IP GeoLocation service available is <a href="http://ipinfo.io" class="bare">http://ipinfo.io</a>
+Calling it with json uri (<a href="http://ipinfo.io/json" class="bare">http://ipinfo.io/json</a>) will return IP location information in json format. (you will get less but sufficient info with <a href="http://ipinfo.io/geo" class="bare">http://ipinfo.io/geo</a>)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "ip": "8.8.8.8",
+  "hostname": "google-public-dns-a.google.com",
+  "loc": "37.385999999999996,-122.0838",
+  "org": "AS15169 Google Inc.",
+  "city": "Mountain View",
+  "region": "California",
+  "country": "US",
+  "phone": 650
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let’s do the request with AngulaJS and use the result.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre> function GetCountry($scope, $http) {
+   $http.get('http://ipinfo.io/json').
+     success(function(data) {
+       $scope.location = data;
+       $scope.country = 'fr';
+       if (data.country != 'FR') $scope.country = "en";
+   });
+ }
+ ----
+
+So easy to handle json data with angular :)
+
+The web page part:</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&lt;!DOCTYPE html&gt;
+&lt;html ng-app&gt;
+  &lt;head&gt;
+    &lt;script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.3/angular.min.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+function GetCountry($scope, $http) {
+   $http.get('http://ipinfo.io/json').
+     success(function(data) {
+       $scope.location = data;
+       $scope.country = 'fr';
+       if (data.country != 'FR') $scope.country = "en";
+   });
+ }
+   &lt;/script&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+ &lt;div ng-controller="GetCountry"&gt;Your country: {{country}}&lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>and that’s it.</pre>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2014/05/19/I-P-Geo-Location-with-Angular-J-S.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2014/05/19/I-P-Geo-Location-with-Angular-J-S.html</guid><category><![CDATA[angular geoloc]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Mon, 19 May 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[Great icons for web site]]></title><description><![CDATA[<div class="paragraph">
+<p>You will find plenty of web site dedicated to icons. Here are my favorites.</p>
+</div>
+<div class="paragraph">
+<p>clean icons <a href="http://www.iconsdb.com" class="bare">http://www.iconsdb.com</a>
+huge collection <a href="https://www.iconfinder.com" class="bare">https://www.iconfinder.com</a>
+awesome vector font icon at <a href="http://fontawesome.io" class="bare">http://fontawesome.io</a>
+I will update it over time.</p>
+</div>]]></description><link>https://YannDanthu.github.io/2014/05/17/Great-icons-for-web-site.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2014/05/17/Great-icons-for-web-site.html</guid><category><![CDATA[CSS]]></category><category><![CDATA[ HTML]]></category><category><![CDATA[ icon]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Sat, 17 May 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[Grayscale image using CSS]]></title><description><![CDATA[<div class="paragraph">
+<p>Need a grayscale to color effect applied to images used in menu or button ?
+I do ;)</p>
+</div>
+<div class="paragraph">
+<p>Doing it the old would need to create colored and grayed image and use either javascript or CSS background-image.</p>
+</div>
+<div class="paragraph">
+<p>But today CSS should be enough to accomplish this task.
+Here is how:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>img.grayscale{
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%); /* For Webkit browsers */
+  filter: gray; /* For IE 6 - 9 */
+  -webkit-transition: all .6s ease; /* Transition for Webkit browsers */
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The hover effect:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>img.grayscale:hover{
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+  filter: none;
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>source: <a href="http://www.cheesetoast.co.uk/add-grayscale-images-hover-css-black-white/">cheesetoast</a></p>
+</div>]]></description><link>https://YannDanthu.github.io/2014/05/06/Grayscale-image-using-C-S-S.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2014/05/06/Grayscale-image-using-C-S-S.html</guid><category><![CDATA[CSS]]></category><category><![CDATA[ HTML]]></category><category><![CDATA[ tips]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Tue, 06 May 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[Coding with a mac french keyboard]]></title><description><![CDATA[<div class="paragraph">
+<p>Coding requires some specific characters such as</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre> [ ] { } ( ) \</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unfortunately the Apple french keyboard (wireless or macbook) does not show brackets, curlybraces and backslash.</p>
+</div>
+<div class="paragraph">
+<p>Also, a lot of characters are available with key combination but not displayed on the keyboard.</p>
+</div>
+<div class="paragraph">
+<p>Learning these combinations is an option.</p>
+</div>
+<div class="paragraph">
+<p>Displaying the available characters is another.
+To do so, select “Afficher Visualiseur de clavier” in top menu bar (aside of clock)</p>
+</div>
+<div class="paragraph">
+<p>This may need to activate the icon to appear from “Préférences Système &gt; Clavier”</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://YannDanthu.github.io/images/osx-keyb.tiff" alt="Default layout"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://YannDanthu.github.io/images/osx-keyb-alt.tiff" alt="ALT key layout"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://YannDanthu.github.io/images/osx-keyb-shiftalt.tiff" alt="ALT + SHIFT key layout"></span></p>
+</div>]]></description><link>https://YannDanthu.github.io/2014/04/09/Coding-with-a-mac-french-keyboard.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2014/04/09/Coding-with-a-mac-french-keyboard.html</guid><category><![CDATA[coding]]></category><category><![CDATA[ OSX]]></category><category><![CDATA[ tips]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Wed, 09 Apr 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[I need a NAS for TimeMachine]]></title><description><![CDATA[<div class="sect1">
+<h2 id="_my_needs">My needs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apple’s backup TimeMachine is the backup solution offered for every Mac owner, if he did not got stuck with Tiger ;)</p>
+</div>
+<div class="paragraph">
+<p>Plug an external disk and here you go, you can backup your Mac on it. Great! Easy! Nice!</p>
+</div>
+<div class="paragraph">
+<p>What if I want to backup elsewhere than on an attached external disk drive ? Lets say on a storage available on my LAN ? Yes, on a NAS.
+In that case I need a NAS to be TimeMachine ready, yes the NAS has to be recognized by TimeMachine in order to use it as a disk target.
+Easy solution, buy a TimeCapsule of course :D You see, it’s easy, Apple thought of everything.</p>
+</div>
+<div class="paragraph">
+<p>No seriously, I don’t need an extra router with switch and wireless access point, just a NAS to do my backup ;)</p>
+</div>
+<div class="paragraph">
+<p>Why not buying a NAS already bundled with disks, like Synology, ReadyNAS or QNap ? Come on, let’s spend money again :D
+Do I have the money ? Are they reliable ? How many disks ? Can I expand the storage size ?</p>
+</div>
+<div class="paragraph">
+<p>Hey, what about recycling an old PC exhausts by a lifetime running Windows XP (and its hundreds of patches). Maybe this old PC deserves a second chance and retire as a File Server ;)</p>
+</div>
+<div class="paragraph">
+<p>Ok, what do I do with my naked PC ?
+I need a NAS solution, but a lightweight OS and software solution.
+First thing that came to my mind is Linux (don’t tell me you thought of installing windows again, please be nice with the machine)</p>
+</div>
+<div class="paragraph">
+<p>Let’s go for Linux then. Ho wait, I’ve also heard of ZFS. Could ZFS be useful for me ?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requirements">Requirements:</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>build a NAS by recycling a PC</p>
+</li>
+<li>
+<p>Lightweight solution</p>
+</li>
+<li>
+<p>easy to install and maintain</p>
+</li>
+<li>
+<p>reliable</p>
+</li>
+<li>
+<p>expandable disk storage</p>
+</li>
+<li>
+<p>ZFS, RAID support</p>
+</li>
+<li>
+<p>TimeMachine enabled, AFP, Samba</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solution">Solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s find a Linux based solution. Let’s do some search ….
+Ok here is the result of my search: <a href="https://www.openfiler.com/">openfiler</a>, <a href="http://www.serverelements.com/">naslite</a>, <a href="http://nas4free.org/">nas4free</a></p>
+</div>
+<div class="paragraph">
+<p>These 3 came up regularly in forums and posts.</p>
+</div>
+<div class="paragraph">
+<p>After more readings I would go with NAS4Free. Original open source project was filed under FreeNAS but as it became more commercial, the team split and the non-commercial branch continued under NAS4Free.
+NAS4Free is based on FreeBSD.</p>
+</div>
+<div class="paragraph">
+<p>Please check <a href="http://nas4free.org/">nas4free.org</a> web site for more info.</p>
+</div>
+<div class="paragraph">
+<p>How to install NAS4Free: I’ll do a post for that.</p>
+</div>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2013/06/13/I-need-a-N-A-S-for-Time-Machine.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2013/06/13/I-need-a-N-A-S-for-Time-Machine.html</guid><category><![CDATA[NAS]]></category><category><![CDATA[ OSX]]></category><category><![CDATA[ TImeMachine]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Thu, 13 Jun 2013 00:00:00 GMT</pubDate></item><item><title><![CDATA[Shuttle SN41G2 recycling project]]></title><description><![CDATA[<div class="paragraph">
+<p>Je compte recycler un vieux shuttle SN41G2 en HTPC.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://YannDanthu.github.io/images/030417_shuttle.jpg" alt="030417 shuttle.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Bon il faut le dire, le shuttle avait de la gueule quand il est sorti.
+Petit, sobre, tout alu et ce qu’il faut en connexion façade.
+Mais  son alim est assez fragile lorsqu’on l’utilise comme un serveur (la petite alim de 65w n’aime pas ça semble-t-il)
+Bref il a fait son temps (depuis longtemps déjà) et plutôt que de moisir dans un coin je compte donc le recycler avec un trio efficace: atom/ion/mini-itx</p>
+</div>
+<div class="paragraph">
+<p>[underline]Nous sommes dans le recyclage, donc:
+* boitier: shuttle SN41G2
+* 2 x 1Go SO-DIMM (suite à l’upgrade de mon macbook)
+* 1 x 300Go SATA Maxtor
+* 1 lecteur DVD pioneer slot-in ? ou pas, à voir….</p>
+</div>
+<div class="paragraph">
+<p>[underline]Maintenant passons aux nouvelles pièces :)
+Comme j’ai 2 barrettes de SO-DIMM j’opte pour la mini-itx Point Of View 330 (MB/ION330 ou MB330 pour les intimes, pas la 330-1 parce que cette dernière n’est pas en SO-DIMM)</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://YannDanthu.github.io/images/ion-mb330.jpg" alt="ion mb330.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Cette carte intègre ce qu’il faut: du sata, de l’usb et de l’hdmi (pour plus de détail, une belle image <a href="http://www.appinformatica.com/imf/placas-base-intel-point-of-view-p.b.-ion-mb330-m-itx-nvidiamcp7a-ion-1g.jpg">placas-base-intel-point-of-view-p.b.-ion-mb330-m-itx-nvidiamcp7a-ion-1g.jpg</a>)
+Et pour l’alimentation il faut quelque chose de silencieux comme il se doit.
+Donc une picoPSU est tout simplement ce qu’il faut dans ce cas là !</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://YannDanthu.github.io/images/1867-picopsu-150-xt.jpg" alt="1867 picopsu 150 xt.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Il ne reste qu’un transfo pour délivrer du 12v 5A et le tour est joué (je dois avoir ça dans des cartons, sinon ben faudra sortir le porte-feuille)</p>
+</div>
+<div class="paragraph">
+<p>[underline]Pour le budget:
+ * carte POV mini-itx: 125euros
+ * picoPSU : 37 euros
+Avec les frais de port on doit avoisiner les 180euros, un recyclage qui me coutera 80euros de moins qu’un joli nettop tout prêt à l’emploi.</p>
+</div>
+<div class="paragraph">
+<p>Shopping:
+* link:http://www.computeruniverse.net/products/e90338422/d2/technische-daten/point-of-view-ion-mb330-miniitx.asp
+* link:http://cgi.ebay.fr/PicoPSU-150-XT-Power-Supply-Mini-ITX-VIA-Pico-PSU-150XT_W0QQitemZ290394510660QQcmdZViewItemQQptZUK_Computing_PowerSupplies_EH?hash=item439cdc9544#ht_856wt_845</p>
+</div>]]></description><link>https://YannDanthu.github.io/2010/02/23/Shuttle-S-N41-G2-recycling-project.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2010/02/23/Shuttle-S-N41-G2-recycling-project.html</guid><category><![CDATA[ion]]></category><category><![CDATA[ miniitx]]></category><category><![CDATA[ pc]]></category><category><![CDATA[ recycling]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Tue, 23 Feb 2010 00:00:00 GMT</pubDate></item><item><title><![CDATA[Java.lang.OutOfMemoryError]]></title><description><![CDATA[<div class="paragraph">
+<p>There are three possible causes for an OutOfMemoryError. The first is that the JVM has a real memory leak, caused by a bug in the internal implementation of the JVM heap management. This is extremely unlikely. All JVMs are tested very strenuously for this, and it would be the absolute top priority bug if anyone found such a bug. So you can pretty much eliminate this possibility.</p>
+</div>
+<div class="paragraph">
+<p>The second possible cause of an OutOfMemoryError is that you simply haven’t got enough memory available for the workings of your application. There are two possible solutions to this situation, either increase the available JVM heap size, or decrease the amount of memory your application needs. Increasing the available JVM heap size is simply done with the -Xmx parameter to the JVM. If you still have the memory problem because you have already increased this parameter as much as possible (up to available RAM, don’t exceed real system memory or your application will page and crawl to a halt), then you need to reduce the amount of memory being used by your application. Reducing application memory may be simple, you may just be allowing some collections to be too big, for example using many large buffers. Or it can be complex, requiring you to reimplement some classes, or even redesign the application.</p>
+</div>
+<div class="paragraph">
+<p>Reader James Stauffer has pointed out that with some JVMs (e.g. the Sun JVMs), there is also a “Perm” space which holds JVM structures and class objects. If you are using a very large number of classes, it is possible to run out of space in “Perm” space, and you may need to increase the size of that space, e.g. with the Sun JVM using the -XX:PermSize and -XX:MaxPermSize options.</p>
+</div>
+<div class="paragraph">
+<p>The third possible cause of an OutOfMemoryError is the most common, unintentional object retention. You are hanging on to objects without realizing it and this is causing your heap to grow and grow until you have nothing spare.</p>
+</div>
+<div class="paragraph">
+<p>source: <a href="http://www.javaperformancetuning.com/news/qotm036.shtml">javaperformancetuning</a></p>
+</div>]]></description><link>https://YannDanthu.github.io/2005/05/06/Javalang-Out-Of-Memory-Error.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2005/05/06/Javalang-Out-Of-Memory-Error.html</guid><category><![CDATA[exception]]></category><category><![CDATA[ java]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Fri, 06 May 2005 00:00:00 GMT</pubDate></item><item><title><![CDATA[Java Unparseable date]]></title><description><![CDATA[<div class="paragraph">
+<p>If using SimpleDateFormat to parse a string into a Date object, it may fail if the Locale sets in SimpleDateFormat differ from the string format.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>java.text.ParseException: Unparseable date: "02NOV2004"
+      at java.text.DateFormat.parse(DateFormat.java:335)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above example shows an exception parsing the string “02NOV2004” with the pattern ddMMMyyyy.</p>
+</div>
+<div class="paragraph">
+<p>This should work, but if the Locale is FR (french) then the short name for November is “nov.” (Ending with a dot) and not “nov” making the process to fail.</p>
+</div>]]></description><link>https://YannDanthu.github.io/2004/11/02/Java-Unparseable-date.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2004/11/02/Java-Unparseable-date.html</guid><category><![CDATA[exception]]></category><category><![CDATA[ java]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Tue, 02 Nov 2004 00:00:00 GMT</pubDate></item></channel></rss>
