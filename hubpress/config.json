@@ -17,5 +17,21 @@
   },
   "theme": {
     "name": "myroon2"
+  },
+  "urls": {
+    "site": "https://YannDanthu.github.io",
+    "hubpress": "http://yanndanthu.github.io",
+    "theme": "//YannDanthu.github.io/themes/myroon2",
+    "images": "https://YannDanthu.github.io/images"
+  },
+  "initialisationConfigComponent": {
+    "name": "initialise-configuration",
+    "computed": {},
+    "methods": {},
+    "staticRenderFns": [
+      null,
+      null,
+      null
+    ]
   }
 }
