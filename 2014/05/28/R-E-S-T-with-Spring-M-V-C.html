@@ -13,20 +13,21 @@
     <link rel="shortcut icon" href="https://YannDanthu.github.io/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:400,700,400italic,700italic|Open+Sans:400italic,700italic,700,400">
-    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/myroon2/assets/css/screen.css?v=1479926675766" />
+    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/myroon2/assets/css/screen.css?v=1491574217040" />
 
     <link rel="canonical" href="https://YannDanthu.github.io/2014/05/28/R-E-S-T-with-Spring-M-V-C.html" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="Yann&#x27;s blog" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="article" />
     <meta property="og:title" content="REST with Spring MVC" />
     <meta property="og:description" content="[underline] Goal Introduction to REST, JSON and Spring MVC. To do so, let’s implement a REST service with Spring MVC. [underline] RESTFul principles Uniform interface Stateless Cacheable Client Server mode Where SOAP services are based on verbs (like methods exposed by an interface) , REST are based on resources. When" />
     <meta property="og:url" content="https://YannDanthu.github.io/2014/05/28/R-E-S-T-with-Spring-M-V-C.html" />
+    <meta property="article:published_time" content="2014-05-28T00:00:00.000Z" />
     <meta property="article:tag" content="java" />
-    <meta property="article:tag" content=" json" />
-    <meta property="article:tag" content=" rest" />
-    <meta property="article:tag" content=" spring" />
+    <meta property="article:tag" content="json" />
+    <meta property="article:tag" content="rest" />
+    <meta property="article:tag" content="spring" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="REST with Spring MVC" />
@@ -34,11 +35,29 @@
     <meta name="twitter:url" content="https://YannDanthu.github.io/2014/05/28/R-E-S-T-with-Spring-M-V-C.html" />
     
     <script type="application/ld+json">
-null
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Yann's blog",
+    "author": {
+        "@type": "Person",
+        "name": "Yann Danthu",
+        "image": "https://avatars3.githubusercontent.com/u/7732947?v=3",
+        "url": "https://YannDanthu.github.io/author/YannDanthu/",
+        "sameAs": "http://yann.danthu.com",
+        "description": "developer"
+    },
+    "headline": "REST with Spring MVC",
+    "url": "https://YannDanthu.github.io/2014/05/28/R-E-S-T-with-Spring-M-V-C.html",
+    "datePublished": "2014-05-28T00:00:00.000Z",
+    "keywords": "java, json, rest, spring",
+    "description": "[underline] Goal Introduction to REST, JSON and Spring MVC. To do so, let’s implement a REST service with Spring MVC. [underline] RESTFul principles Uniform interface Stateless Cacheable Client Server mode Where SOAP services are based on verbs (like methods exposed by an interface) , REST are based on resources. When"
+}
     </script>
 
     <meta name="generator" content="HubPress" />
     <link rel="alternate" type="application/rss+xml" title="Yann&#x27;s blog" href="https://YannDanthu.github.io/rss/" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css">
 </head>
 <body class="post-template tag-java tag-json tag-rest tag-spring  noimage">
 
@@ -327,8 +346,8 @@ Minimum dependencies necessary for Spring MVC REST with JSON output.</p>
                 </a> -->
 
                 <a href="https://YannDanthu.github.io/author/YannDanthu/" class="photo">
-                    <span style="background-image: url('https://avatars.githubusercontent.com/u/7732947?v&#x3D;3');">
-                        <img src="https://avatars.githubusercontent.com/u/7732947?v&#x3D;3" alt="Yann Danthu">
+                    <span style="background-image: url('https://avatars3.githubusercontent.com/u/7732947?v&#x3D;3');">
+                        <img src="https://avatars3.githubusercontent.com/u/7732947?v&#x3D;3" alt="Yann Danthu">
                     </span>
                 </a>
 
@@ -436,7 +455,7 @@ Minimum dependencies necessary for Spring MVC REST with JSON output.</p>
         }
     </script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js?v="></script> 
       <script type="text/javascript">
         jQuery( document ).ready(function() {
           // change date with ago
@@ -448,6 +467,8 @@ Minimum dependencies necessary for Spring MVC REST with JSON output.</p>
 
         hljs.initHighlightingOnLoad();
       </script>
+       
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
         <script>
             $(function(){
