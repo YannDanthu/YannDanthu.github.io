@@ -1,4 +1,5 @@
 = Co-working, co-living, remote, nomad
+:hp-tags: RemoteWork, nomad, CoWorking, CoLiving
 
 Remote working is great, doing it since 2005 and love it for many many reasons.  
 
