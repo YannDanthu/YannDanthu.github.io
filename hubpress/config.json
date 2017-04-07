@@ -2,18 +2,30 @@
   "meta": {
     "username": "YannDanthu",
     "repositoryName": "YannDanthu.github.io",
-    "branch": "master"
+    "branch": "master",
+    "cname": ""
   },
   "site": {
     "title": "Yann's blog",
     "description": "This blog is mainly used as an FAQ and Tips reminder for myself ;)",
     "logo": "http://yann.danthu.com/moi-circle.png",
-    "googleAnalytics": "UA-50478688-2"
+    "googleAnalytics": "UA-50478688-2",
+    "cover": "",
+    "delay": "",
+    "postsPerPage": "",
+    "disqus": ""
   },
   "socialnetwork": {
     "twitter": "@YannDanthu",
     "linkedin": "http://www.linkedin.com/in/ydanthu",
-    "github": "https://github.com/YannDanthu"
+    "github": "https://github.com/YannDanthu",
+    "email": "",
+    "facebook": "",
+    "googleplus": "https://plus.google.com/113162323281342528797",
+    "instagram": "",
+    "pinterest": "",
+    "flickr": "",
+    "stackoverflow": ""
   },
   "theme": {
     "name": "myroon2"
