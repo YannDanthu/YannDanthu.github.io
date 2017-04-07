@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;)]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 07 Apr 2017 14:12:35 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[MeteorJS introduction at Meetup14 of nantesjs.org]]></title><description><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;)]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 07 Apr 2017 14:33:44 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Co-working, co-living, remote, nomad]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Remote working is great, doing it since 2005 and love it for many many reasons.</p>
+</div>
+<div class="paragraph">
+<p>I already worked from home, local co-working spaces, coffee shops, car, train, plane.
+I don&#8217;t want to limit myself to home or local co-working spaces, this is why I want to go abroad for a week or more of remote working (work and explore).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_where_to_go">where to go</h3>
+<div class="paragraph">
+<p>A good post to start with
+<a href="http://outsite.co/blog/guide-to-coliving/" class="bare">http://outsite.co/blog/guide-to-coliving/</a></p>
+</div>
+<div class="paragraph">
+<p><a href="http://airbnb.com" class="bare">http://airbnb.com</a> of course</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_go_there">how to go there</h3>
+<div class="paragraph">
+<p><a href="http://www.momondo.com" class="bare">http://www.momondo.com</a> to find good deals</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.wowair.com" class="bare">http://www.wowair.com</a> cheap for the US</p>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2016/11/24/Co-working-co-living-remote-nomad.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2016/11/24/Co-working-co-living-remote-nomad.html</guid><category><![CDATA[RemoteWork]]></category><category><![CDATA[nomad]]></category><category><![CDATA[CoWorking]]></category><category><![CDATA[CoLiving]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Thu, 24 Nov 2016 00:00:00 GMT</pubDate></item><item><title><![CDATA[MeteorJS introduction at Meetup14 of nantesjs.org]]></title><description><![CDATA[<div class="paragraph">
 <p><strong>Here are my slides and demo of my talk on MeteorJS given at the NantesJS Meetup14 on 2015.11.19</strong></p>
 </div>
 <div class="paragraph">
