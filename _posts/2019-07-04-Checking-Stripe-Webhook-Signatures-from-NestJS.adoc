@@ -82,7 +82,9 @@ const cloneBuffer = require('clone-buffer');
 app.use(json({
     verify: (req: any, res, buf, encoding) => {
       // important to store rawBody for Stripe signature verification
-      if (req.headers['stripe-signature'] && Buffer.isBuffer(buf)) { req.rawBody = cloneBuffer(buf); }
+      if (req.headers['stripe-signature'] && Buffer.isBuffer(buf)) { 
+      	req.rawBody = cloneBuffer(buf); 
+      }
       return true;
     },
 }));
