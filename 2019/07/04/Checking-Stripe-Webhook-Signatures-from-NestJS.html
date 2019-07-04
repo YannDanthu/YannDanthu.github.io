@@ -17,8 +17,8 @@
     <meta name="MobileOptimized" content="320" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/the-shell/assets/highlighter/prettify.css?v=1562247715108" />
-    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/the-shell/assets/css/screen.css?v=1562247715108" />
+    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/the-shell/assets/highlighter/prettify.css?v=1562247799583" />
+    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/the-shell/assets/css/screen.css?v=1562247799583" />
 
     <link rel="canonical" href="https://YannDanthu.github.io/2019/07/04/Checking-Stripe-Webhook-Signatures-from-NestJS.html" />
     <meta name="referrer" content="origin" />
@@ -190,7 +190,9 @@ const cloneBuffer = require('clone-buffer');
 app.use(json({
     verify: (req: any, res, buf, encoding) =&gt; {
       // important to store rawBody for Stripe signature verification
-      if (req.headers['stripe-signature'] &amp;&amp; Buffer.isBuffer(buf)) { req.rawBody = cloneBuffer(buf); }
+      if (req.headers['stripe-signature'] &amp;&amp; Buffer.isBuffer(buf)) {
+      	req.rawBody = cloneBuffer(buf);
+      }
       return true;
     },
 }));</code></pre>
@@ -273,7 +275,7 @@ app.use(json({
        
     <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
-    <script type='text/javascript' src="//YannDanthu.github.io/themes/the-shell/assets/highlighter/prettify.js?v=1562247715108"></script>
-    <script type='text/javascript' src="//YannDanthu.github.io/themes/the-shell/assets/js/shell.js?v=1562247715108"></script>
+    <script type='text/javascript' src="//YannDanthu.github.io/themes/the-shell/assets/highlighter/prettify.js?v=1562247799583"></script>
+    <script type='text/javascript' src="//YannDanthu.github.io/themes/the-shell/assets/js/shell.js?v=1562247799583"></script>
 </body>
 </html>
