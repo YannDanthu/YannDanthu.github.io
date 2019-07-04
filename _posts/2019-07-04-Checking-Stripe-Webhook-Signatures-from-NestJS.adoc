@@ -2,7 +2,7 @@
 // See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
 // :hp-image: /covers/cover.png
 :published_at: 2019-07-04
-:hp-tags: Stripe, NestJS, How-To
+:hp-tags: Stripe, NestJS, How-To, javascript
 :hp-alt-title: Checking Stripe Webhook Signatures from NestJS
 
 == The short story
