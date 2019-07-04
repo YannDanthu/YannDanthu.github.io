@@ -5,6 +5,22 @@
 :hp-tags: Stripe, NestJS, How-To
 :hp-alt-title: Checking Stripe Webhook Signatures from NestJS
 
+== The short story
+You are using NestJS and want to verify Stripe Webhook signature but your  are facing the following error
+```
+Error: No signatures found matching the expected signature for payload. Are you passing the raw request body you received from Stripe? https://github.com/stripe/stripe-node#webhook-signing
+```
+
+Stripe needs the raw payload to validate the signature, but all your payloads are parsed with Nest, tricky one :(
+
+My solution is to clone the payload with `clone-buffer`
+To do so I use the `body-parser` lib with the verify options.
+
+Check the long story for full detail
+
+
+== The long story
+
 So you are building your app smoothly with NestJS (https://docs.nestjs.com), and you enjoyed it so far :) 
 You included Stripe (https://stripe.com/) to handle all your payment features, and yes they're good at it.
 All is smooth, and it rocks.
@@ -29,10 +45,10 @@ export class StripeController {
     }
     
 	@Post('/')
-	async stripeChange(@Headers('stripe-signature') signature, @Req() request, @Body() body: any) {
+	async stripeChange(@Headers('stripe-signature') signature, @Body() body: any) {
         let event;
         try {
-            event = this.stripe.webhooks.constructEvent(request.rawBody, signature, process.env.STRIPE_ENDPOINT_SECRET);
+            event = this.stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_ENDPOINT_SECRET);
         } catch (err) {
             throw new BadRequestException();
         }
@@ -46,6 +62,8 @@ Error: No signatures found matching the expected signature for payload. Are you 
 ```
 
 Reasons ? Stripe needs the raw payload (request body) of the POST request.
+Ok, lets use the expressjs request.rawBody then ?
+-> NO, req.rawBody is no longer available since 1.5.1 ;)
 
 My solution: use `body-parser` verify option param to clone the payload with `clone-buffer`
 
@@ -63,4 +81,21 @@ app.use(json({
       return true;
     },
 }));
+----
+
+Then update your controller to use the request.rawBody as follow
+
+.stripe.controller.ts
+[source,javascript]
+----    
+	@Post('/')
+	async stripeChange(@Headers('stripe-signature') signature, @Req() request: any) {
+        let event;
+        try {
+            event = this.stripe.webhooks.constructEvent(request.rawBody, signature, process.env.STRIPE_ENDPOINT_SECRET);
+        } catch (err) {
+            throw new BadRequestException();
+        }
+	}
+}
 ----
