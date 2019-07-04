@@ -37,13 +37,20 @@ Ok, easy, follow the doc: https://stripe.com/docs/webhooks/signatures
 export class StripeController {
     stripe: Stripe;
     constructor() {
-        if (!process.env.STRIPE_SECRET_KEY) { throw new Error('Missing env var STRIPE_SECRET_KEY'); }
-        if (!process.env.STRIPE_ENDPOINT_SECRET) { throw new Error('Missing env var STRIPE_ENDPOINT_SECRET'); }
+        if (!process.env.STRIPE_SECRET_KEY) { 
+        	throw new Error('Missing env var STRIPE_SECRET_KEY'); 
+        }
+        if (!process.env.STRIPE_ENDPOINT_SECRET) { 
+        	throw new Error('Missing env var STRIPE_ENDPOINT_SECRET'); 
+        }
         this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     }
     
 	@Post('/')
-	async stripeChange(@Headers('stripe-signature') signature, @Body() body: any) {
+	async stripeChange(
+    	@Headers('stripe-signature') signature, 
+        @Body() body: any) {
+        
         let event;
         try {
             event = this.stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_ENDPOINT_SECRET);
