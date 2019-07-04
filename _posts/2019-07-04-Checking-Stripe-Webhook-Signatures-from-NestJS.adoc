@@ -1,0 +1,44 @@
+= Checking Stripe Webhook Signatures from NestJS
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+// :hp-image: /covers/cover.png
+:published_at: 2019-07-04
+:hp-tags: Stripe, NestJS, How-To
+:hp-alt-title: Checking Stripe Webhook Signatures from NestJS
+
+So you are building your app smoothly with NestJS (https://docs.nestjs.com), and you enjoyed it so far :) 
+You included Stripe (https://stripe.com/) to handle all your payment features, and yes they're good at it.
+All is smooth, and it rocks.
+
+Yeah I know, being a developper is soooo easy ;) and building apps is of course always an easy path.
+
+But then you need to add an entry point for Stripe Webhooks (https://stripe.com/docs/webhooks)
+Ok, easy, follow the doc: https://stripe.com/docs/webhooks/signatures
+
+---
+@Controller('webhook/stripe')
+export class StripeController {
+    stripe: Stripe;
+    constructor(
+        private readonly organizationsService: OrganizationsService,
+    ) {
+        if (!process.env.STRIPE_SECRET_KEY) { throw new Error('Missing env var STRIPE_SECRET_KEY'); }
+        if (!process.env.STRIPE_ENDPOINT_SECRET) { throw new Error('Missing env var STRIPE_ENDPOINT_SECRET'); }
+        this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    }
+    
+	@Post('/')
+	async stripeChange(@Headers('stripe-signature') signature, @Req() request, @Body() body: any) {
+        let event;
+        try {
+            event = this.stripe.webhooks.constructEvent(request.rawBody, signature, process.env.STRIPE_ENDPOINT_SECRET);
+        } catch (err) {
+            throw new BadRequestException();
+        }
+	}
+}
+---
+
+Easy ? Well no, this is what I got :(
+```
+Error: No signatures found matching the expected signature for payload. Are you passing the raw request body you received from Stripe? https://github.com/stripe/stripe-node#webhook-signing
+```
