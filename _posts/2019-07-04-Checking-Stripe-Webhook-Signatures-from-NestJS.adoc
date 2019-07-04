@@ -36,9 +36,7 @@ Ok, easy, follow the doc: https://stripe.com/docs/webhooks/signatures
 @Controller('webhook/stripe')
 export class StripeController {
     stripe: Stripe;
-    constructor(
-        private readonly organizationsService: OrganizationsService,
-    ) {
+    constructor() {
         if (!process.env.STRIPE_SECRET_KEY) { throw new Error('Missing env var STRIPE_SECRET_KEY'); }
         if (!process.env.STRIPE_ENDPOINT_SECRET) { throw new Error('Missing env var STRIPE_ENDPOINT_SECRET'); }
         this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
