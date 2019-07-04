@@ -14,7 +14,9 @@ Yeah I know, being a developper is soooo easy ;) and building apps is of course 
 But then you need to add an entry point for Stripe Webhooks (https://stripe.com/docs/webhooks)
 Ok, easy, follow the doc: https://stripe.com/docs/webhooks/signatures
 
----
+.stripe.controller.ts
+[source,javascript]
+----
 @Controller('webhook/stripe')
 export class StripeController {
     stripe: Stripe;
@@ -36,9 +38,29 @@ export class StripeController {
         }
 	}
 }
----
+----
 
 Easy ? Well no, this is what I got :(
 ```
 Error: No signatures found matching the expected signature for payload. Are you passing the raw request body you received from Stripe? https://github.com/stripe/stripe-node#webhook-signing
 ```
+
+Reasons ? Stripe needs the raw payload (request body) of the POST request.
+
+My solution: use `body-parser` verify option param to clone the payload with `clone-buffer`
+
+.main.ts
+[source,javascript]
+----
+import { json } from 'body-parser';
+
+const cloneBuffer = require('clone-buffer');
+
+app.use(json({
+    verify: (req: any, res, buf, encoding) => {
+      // important to store rawBody for Stripe signature verification
+      if (req.headers['stripe-signature'] && Buffer.isBuffer(buf)) { req.rawBody = cloneBuffer(buf); }
+      return true;
+    },
+}));
+----
