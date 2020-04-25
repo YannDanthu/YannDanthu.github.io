@@ -17,7 +17,7 @@
   },
   "socialnetwork": {
     "twitter": "@YannDanthu",
-    "linkedin": "http://www.linkedin.com/in/ydanthu",
+    "linkedin": "https://www.linkedin.com/in/ydanthu",
     "github": "https://github.com/YannDanthu",
     "email": "",
     "facebook": "",
@@ -32,7 +32,7 @@
   },
   "urls": {
     "site": "https://YannDanthu.github.io",
-    "hubpress": "https://yanndanthu.github.io",
+    "hubpress": "http://localhost:3000",
     "theme": "//YannDanthu.github.io/themes/the-shell",
     "images": "https://YannDanthu.github.io/images"
   },
@@ -43,6 +43,15 @@
     "staticRenderFns": [
       null,
       null,
+      null
+    ],
+    "_compiled": true,
+    "beforeCreate": [
+      null,
+      null
+    ],
+    "__file": "hubpress-plugins/hubpress-github/components/InitConfig.vue",
+    "beforeDestroy": [
       null
     ]
   }
