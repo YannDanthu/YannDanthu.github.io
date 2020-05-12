@@ -11,8 +11,12 @@ Some pretty usefull git command I never remember :)
 
 `git branch --merged master | xargs -L1 git branch -d`
 
+and to keep master out of the result a grep will do +
+`git branch --merged master | grep -v "master" | xargs -L1 git branch -d`
+
 ### update last commit
 
+add your files and run +
 `git commit --amend --no-edit`
 
 ### update last commit message
