@@ -8,7 +8,8 @@
   "site": {
     "title": "Yann's blog",
     "description": "This blog is mainly used as an FAQ and Tips reminder for myself ;) ",
-    "logo": "http://yann.danthu.com/moi-circle.png",
+    "logo": "https://yann.danthu.com/moi-circle.png",
+    "logo2": "https://www.gravatar.com/avatar/d25a422bee7ef9de84ec21a982f95601",
     "googleAnalytics": "UA-50478688-2",
     "cover": "",
     "delay": "",
