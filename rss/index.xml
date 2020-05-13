@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;)]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 20 Feb 2020 15:28:07 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Checking Stripe Webhook Signatures from NestJS]]></title><description><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;) ]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 13 May 2020 08:20:44 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[My git cheatsheet]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some pretty usefull git command I never remember :)</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_remove_all_local_branch_that_have_been_merged_in_master">Remove all local branch that have been merged in master</h3>
+<div class="paragraph">
+<p><code>git branch --merged master | xargs -L1 git branch -d</code></p>
+</div>
+<div class="paragraph">
+<p>and to keep master out of the result a grep will do<br>
+<code>git branch --merged master | grep -v "master" | xargs -L1 git branch -d</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_update_last_commit">update last commit</h3>
+<div class="paragraph">
+<p>add your files and run<br>
+<code>git commit --amend --no-edit</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_update_last_commit_message">update last commit message</h3>
+<div class="paragraph">
+<p><code>git commit --amend -m "my new message here"</code></p>
+</div>
+</div>]]></description><link>https://YannDanthu.github.io/2020/05/12/My-git-cheatsheet.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2020/05/12/My-git-cheatsheet.html</guid><category><![CDATA[dev]]></category><category><![CDATA[git]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Tue, 12 May 2020 00:00:00 GMT</pubDate></item><item><title><![CDATA[Checking Stripe Webhook Signatures from NestJS]]></title><description><![CDATA[<div class="sect1">
 <h2 id="_the_short_story">The short story</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1380,7 +1409,7 @@ NAS4Free is based on FreeBSD.</p>
 <p>Je compte recycler un vieux shuttle SN41G2 en HTPC.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="https://YannDanthu.github.io/images/030417_shuttle.jpg" alt="030417 shuttle.jpg"></span></p>
+<p><span class="image"><img src="https://YannDanthu.github.io/images/030417_shuttle.jpg" alt="030417 shuttle"></span></p>
 </div>
 <div class="paragraph">
 <p>Bon il faut le dire, le shuttle avait de la gueule quand il est sorti.
@@ -1400,7 +1429,7 @@ Bref il a fait son temps (depuis longtemps déjà) et plutôt que de moisir dans
 Comme j’ai 2 barrettes de SO-DIMM j’opte pour la mini-itx Point Of View 330 (MB/ION330 ou MB330 pour les intimes, pas la 330-1 parce que cette dernière n’est pas en SO-DIMM)</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="https://YannDanthu.github.io/images/ion-mb330.jpg" alt="ion mb330.jpg"></span></p>
+<p><span class="image"><img src="https://YannDanthu.github.io/images/ion-mb330.jpg" alt="ion mb330"></span></p>
 </div>
 <div class="paragraph">
 <p>Cette carte intègre ce qu’il faut: du sata, de l’usb et de l’hdmi (pour plus de détail, une belle image <a href="http://www.appinformatica.com/imf/placas-base-intel-point-of-view-p.b.-ion-mb330-m-itx-nvidiamcp7a-ion-1g.jpg">placas-base-intel-point-of-view-p.b.-ion-mb330-m-itx-nvidiamcp7a-ion-1g.jpg</a>)
@@ -1408,7 +1437,7 @@ Et pour l’alimentation il faut quelque chose de silencieux comme il se doit.
 Donc une picoPSU est tout simplement ce qu’il faut dans ce cas là !</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="https://YannDanthu.github.io/images/1867-picopsu-150-xt.jpg" alt="1867 picopsu 150 xt.jpg"></span></p>
+<p><span class="image"><img src="https://YannDanthu.github.io/images/1867-picopsu-150-xt.jpg" alt="1867 picopsu 150 xt"></span></p>
 </div>
 <div class="paragraph">
 <p>Il ne reste qu’un transfo pour délivrer du 12v 5A et le tour est joué (je dois avoir ça dans des cartons, sinon ben faudra sortir le porte-feuille)</p>
