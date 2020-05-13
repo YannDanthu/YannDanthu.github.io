@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;) ]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 13 May 2020 08:20:44 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[My git cheatsheet]]></title><description><![CDATA[<div id="preamble">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;) ]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 13 May 2020 08:23:41 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[My git cheatsheet]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Some pretty usefull git command I never remember :)</p>
@@ -6,7 +6,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_remove_all_local_branch_that_have_been_merged_in_master">Remove all local branch that have been merged in master</h3>
+<h3 id="_remove_all_local_branches_already_merged_in_master">Remove all local branches already merged in master</h3>
 <div class="paragraph">
 <p><code>git branch --merged master | xargs -L1 git branch -d</code></p>
 </div>
