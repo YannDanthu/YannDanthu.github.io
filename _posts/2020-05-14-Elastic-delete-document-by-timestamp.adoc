@@ -1,0 +1,45 @@
+= Elastic delete document by timestamp
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+// :hp-image: /covers/cover.png
+// :published_at: 2019-01-31
+:hp-tags: dev, elastic,
+// :hp-alt-title: My English Title
+
+```
+GET apm-7.4.2-error-000001/_search
+{
+  "query": {
+    "range": {
+      "@timestamp": {
+        "gt": "05/12/2019",
+        "lte": "06/12/2019",
+        "format": "dd/MM/yyyy||yyyy"
+      }
+    }
+  }
+}
+
+POST apm-7.4.2-error-000001/_delete_by_query
+{
+    "query": {
+      "range": {
+        "@timestamp" : {
+            "lt" :  "now-30d/d"
+        }
+      }
+    }
+}
+
+POST apm-7.4.2-error-000001/_delete_by_query
+{
+  "query": {
+    "range": {
+      "@timestamp": {
+        "gt": "05/12/2019",
+        "lte": "06/12/2019",
+        "format": "dd/MM/yyyy||yyyy"
+      }
+    }
+  }
+}
+```
