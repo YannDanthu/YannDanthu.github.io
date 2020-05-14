@@ -43,3 +43,15 @@ POST apm-7.4.2-error-000001/_delete_by_query
   }
 }
 ```
+
+## Possible failure
+
+. Amazon ES service actively blocking writes to protect the cluster from reaching red or yellow status
+
+Low memory or/and low disk
+```
+"cause": {
+  "type": "cluster_block_exception",
+  "reason": "index [apm-7.4.2-error-000001] blocked by: [FORBIDDEN/8/index write (api)];"
+      }
+```
