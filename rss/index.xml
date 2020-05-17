@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;) ]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 13 May 2020 08:46:22 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[My git cheatsheet]]></title><description><![CDATA[<div id="preamble">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Yann's blog]]></title><description><![CDATA[This blog is mainly used as an FAQ and Tips reminder for myself ;) ]]></description><link>https://YannDanthu.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 17 May 2020 16:20:35 GMT</lastBuildDate><atom:link href="https://YannDanthu.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How To Use Rsync to Sync with a Remote System]]></title><description><![CDATA[<div class="paragraph">
+<p><code>rsync -aP localPath user@remoteTarget:remotePath</code></p>
+</div>
+<div class="paragraph">
+<p>The <strong>-P</strong> option combines <strong>–progress</strong> and <strong>–partial</strong><br>
+The <strong>-a</strong> (--archive) option combines <strong>-rlptgoD</strong></p>
+</div>
+<div class="paragraph">
+<p>Add <strong>-z</strong> to compress data if it&#8217;s worth it.</p>
+</div>]]></description><link>https://YannDanthu.github.io/2020/05/17/How-To-Use-Rsync-to-Sync-with-a-Remote-System.html</link><guid isPermaLink="true">https://YannDanthu.github.io/2020/05/17/How-To-Use-Rsync-to-Sync-with-a-Remote-System.html</guid><category><![CDATA[dev]]></category><category><![CDATA[shell]]></category><category><![CDATA[rsync]]></category><dc:creator><![CDATA[Yann Danthu]]></dc:creator><pubDate>Sun, 17 May 2020 00:00:00 GMT</pubDate></item><item><title><![CDATA[My git cheatsheet]]></title><description><![CDATA[<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Some pretty usefull git command I never remember :)</p>
