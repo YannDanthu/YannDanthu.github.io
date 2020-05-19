@@ -6,7 +6,8 @@
 // :hp-alt-title: My English Title
 
 As simple as that:
-----
-ffmpeg -i input.mov -pix_fmt rgb24 -r 10 outpout.gif
-----
 
+```shell
+ffmpeg -i input.mov -pix_fmt rgb24 -r 10 outpout.gif
+
+```
