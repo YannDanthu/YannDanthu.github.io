@@ -17,8 +17,8 @@
     <meta name="MobileOptimized" content="320" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/the-shell/assets/highlighter/prettify.css?v=1582212487702" />
-    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/the-shell/assets/css/screen.css?v=1582212487702" />
+    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/the-shell/assets/highlighter/prettify.css?v=1589891344750" />
+    <link rel="stylesheet" type="text/css" href="//YannDanthu.github.io/themes/the-shell/assets/css/screen.css?v=1589891344750" />
 
     <link rel="canonical" href="https://YannDanthu.github.io/2017/12/01/mov-to-gifanim.html" />
     <meta name="referrer" content="origin" />
@@ -59,7 +59,9 @@
 
     <meta name="generator" content="HubPress" />
     <link rel="alternate" type="application/rss+xml" title="Yann&#x27;s blog" href="https://YannDanthu.github.io/rss/" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-okaidia.min.css">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -71,6 +73,7 @@
     ga('send', 'pageview');
 
     </script>
+
 </head>
 <body class="post-template tag-osx">
 
@@ -82,7 +85,7 @@
 
         <header class="post-header">
             <a id="blog-logo" href="https://YannDanthu.github.io">
-                    <img src="http://yann.danthu.com/moi-circle.png" alt="Blog Logo" />
+                    <img src="https://yann.danthu.com/moi-circle.png" alt="Blog Logo" />
             </a>
         </header>
 
@@ -97,7 +100,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>ffmpeg -i input.mov -pix_fmt rgb24 -r 10 outpout.gif</pre>
+<pre class="highlight"><code class="language-shell" data-lang="shell">ffmpeg -i input.mov -pix_fmt rgb24 -r 10 outpout.gif</code></pre>
 </div>
 </div>
         </section>
@@ -112,17 +115,17 @@
 
             <section class="share">
                 <h4>Share this</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text=.mov to gifanim&url=https://YannDanthu.github.io/"
+                <a class="icon-twitter" href="http://twitter.com/share?text=.mov to gifanim&url=https://YannDanthu.github.io/2017/12/01/mov-to-gifanim.html"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://YannDanthu.github.io/"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://YannDanthu.github.io/2017/12/01/mov-to-gifanim.html"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://YannDanthu.github.io/"
-                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                    <span class="hidden">Google+</span>
+                <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://YannDanthu.github.io/2017/12/01/mov-to-gifanim.html&title=.mov to gifanim"
+                    onclick="window.open(this.href, 'linkedin', 'width=490,height=530');return false;">
+                    <span class="hidden">LinkedIn</span>
                 </a>
             </section>
 
@@ -138,11 +141,17 @@
         <!-- <a class="subscribe icon-feed" href="https://YannDanthu.github.io/rss/"><span class="tooltip">Subscribe!</span></a> -->
         <div class="inner">
              <section class="copyright">All content copyright <a href="/">Yann&#x27;s blog</a> &copy; 2020 &bull; All rights reserved.</section>
-             <section class="poweredby">Proudly published with <a href="https://twitter.com/hubpressio">HubPress</span></a> in <a href="https://github.com/mityalebedev/The-Shell">The Shell</a> theme.</section>
+             <section class="poweredby">Proudly published with <a href="https://hubpress.github.io">HubPress</span></a> in <a href="https://github.com/mityalebedev/The-Shell">The Shell</a> theme.</section>
         </div>
     </footer>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js?v="></script> 
+
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/prism.min.js?v="></script> 
       <script type="text/javascript">
         jQuery( document ).ready(function() {
           // change date with ago
@@ -152,12 +161,10 @@
           });
         });
 
-        hljs.initHighlightingOnLoad();
+        // hljs.initHighlightingOnLoad();
       </script>
-       
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
-    <script type='text/javascript' src="//YannDanthu.github.io/themes/the-shell/assets/highlighter/prettify.js?v=1582212487702"></script>
-    <script type='text/javascript' src="//YannDanthu.github.io/themes/the-shell/assets/js/shell.js?v=1582212487702"></script>
+    <script type='text/javascript' src="//YannDanthu.github.io/themes/the-shell/assets/highlighter/prettify.js?v=1589891344750"></script>
+    <script type='text/javascript' src="//YannDanthu.github.io/themes/the-shell/assets/js/shell.js?v=1589891344750"></script>
 </body>
 </html>
