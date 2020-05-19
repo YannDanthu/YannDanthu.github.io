@@ -1,0 +1,10 @@
+= ffmpeg convert mp3 to wav
+// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
+// :hp-image: /covers/cover.png
+// :published_at: 2019-01-31
+:hp-tags: ffmpeg, mp3, wav,
+// :hp-alt-title: My English Title
+
+```shell
+ffmpeg -i file.mp3 -acodec pcm_u8 -ar 22050 file.wav
+```
